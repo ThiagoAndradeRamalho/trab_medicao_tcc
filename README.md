@@ -40,8 +40,6 @@ Do ponto de vista técnico, o estudo será estruturado com base em:
 - Aplicação de técnicas de processamento de linguagem natural (NLP) para identificar padrões textuais nos comentários de rejeição.
 
 ## 2.3 Trabalhos e evidências prévias (internos e externos)
-Liste experimentos, estudos, análises ou dados anteriores que já tratam do tema, tanto dentro da organização quanto na literatura externa.
-
 A literatura recente em Engenharia de Software Empírica tem ampliado o entendimento sobre o comportamento de Pull Requests em projetos Open Source, mas grande parte desses trabalhos ainda foca principalmente nos fatores que favorecem a aceitação das contribuições. Com isso, existe uma lacuna importante na investigação dos elementos que levam um PR a ser rejeitado, o que torna este estudo especialmente relevante.
 
 Entre os trabalhos mais atuais que se aproximam desse tema está o de Li et al. (2022), “Opportunities and Challenges in Repeated Revisions to Pull-Requests: An Empirical Study”. Embora o objetivo principal dos autores seja analisar PRs que passam por várias rodadas de revisão, eles mostram que PRs sujeitos a muitas iterações acabam tendo maior chance de não serem aceitos. As razões mais comuns incluem desalinhamento com o escopo do projeto, dificuldade do autor em atender às solicitações dos revisores, falhas de comunicação e perda de consistência ao longo das revisões.
@@ -61,8 +59,8 @@ Fatores como granularidade da alteração, complexidade da modificação, uso de
 4. Comunicação técnica e fatores sociais
 Clareza da descrição e justificativas fornecidas constituem elementos comunicacionais que influenciam o processo de decisão durante revisões.
 
-3. Objetivos e questões (Goal / Question / Metric)
-3.1 Objetivo geral (Goal template)
+# 3. Objetivos e questões (Goal / Question / Metric)
+## 3.1 Objetivo geral (Goal template)
 Preencha o objetivo geral usando um template claro (por exemplo, GQM), deixando explícito o que será analisado, com qual propósito, sob qual perspectiva e em qual contexto.
 
 3.2 Objetivos específicos
