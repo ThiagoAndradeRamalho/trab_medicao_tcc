@@ -2,7 +2,7 @@
 ## 1.1 Fatores que Influenciam a Rejeição de Pull Requests em OSS
 
 ## 1.2 ID / código
-01
+808904
 
 ## 1.3 Versão do documento e histórico de revisão
 v1.0
@@ -61,61 +61,243 @@ Clareza da descrição e justificativas fornecidas constituem elementos comunica
 
 # 3. Objetivos e questões (Goal / Question / Metric)
 ## 3.1 Objetivo geral (Goal template)
-Preencha o objetivo geral usando um template claro (por exemplo, GQM), deixando explícito o que será analisado, com qual propósito, sob qual perspectiva e em qual contexto.
+O objetivo é analisar quais fatores técnicos, sociais e de comunicação influenciam a rejeição de Pull Requests em projetos Open Source, com o propósito de entender padrões e causas, melhorar a qualidade das contribuições e ajudar colaboradores no processo de revisão.
 
-3.2 Objetivos específicos
+## 3.2 Objetivos específicos
 Decomponha o objetivo geral em metas mais focadas (O1, O2, etc.), que descrevam resultados concretos de aprendizado ou decisão que o experimento deve gerar.
 
-3.3 Questões de pesquisa / de negócio
+- O1: Identificar e organizar quais PRs foram rejeitados nos projetos analisados
+- O2: Avaliar se caracteristicas técnicas, como tamanho, número de arquivos modificados, presença de testes, influenciam a rejeição.
+- O3: Analisar se as experiencias do autor correspondem com a realidade dos motivos gerais das rejeições.
+- O4: Identificar os comentários mais citados pelos revisores de PRs.
+- O5: Comparar diferentes reportitorios com o intuito e identificar se ha um padrão nas rejeições ou são variados.
+
+## 3.3 Questões de pesquisa / de negócio
 Formule perguntas claras que o experimento deverá responder (Q1, Q2, etc.), em linguagem que faça sentido para os stakeholders técnicos e de negócio.
 
-3.4 Métricas associadas (GQM)
+Q1: Quais são os motivos mais recorrentes nos comentários de PRs rejeitados?
+Q2: PRs maiores ou que alteram muitos arquivos são rejeitados com mais frequência?
+Q3: Existem diferenças relevantes nos padrões de rejeição entre os projetos analisados?
+
+## 3.4 Métricas associadas (GQM)
 Associe a cada questão as métricas que serão usadas para respondê-la, com nome, definição, unidade e fonte dos dados, garantindo alinhamento entre G, Q e M.
 
-4. Escopo e contexto do experimento
-4.1 Escopo funcional / de processo (incluído e excluído)
+### Q1 — Quais são os motivos mais recorrentes nos comentários de PRs rejeitados?
+- M1 - Classificação do motivo de rejeição(muitos arqivos, falta de testes, padrão incorreto) / 
+   Unidade: categoria textual.
+   Fonte: comentários via API + NLP.
+
+- M2 - Frequência do motivo / 
+  Unidade: contagem / %.
+  Fonte: comentários dos PRs.
+
+- M3 - Quantidade total de comentários por PR / 
+Unidade: número de comentários.
+Fonte: API.
+
+- M4 - Presença de feedback negativo explícito /
+Unidade: número de comentários.
+Fonte: API.
+
+- M5 - Tempo até o primeiro comentário de crítica / 
+Unidade: horas/dias.
+Fonte: timestamps da API.
+
+### Q2 - PRs maiores ou que alteram muitos arquivos são rejeitados com mais frequência?
+
+- M1 - Linhas adicionadas/removidas (LOC) / 
+Unidade: linhas.
+Fonte: diff.
+
+- M2 — Número de arquivos modificados
+Unidade: contagem.
+Fonte: API.
+
+- M3 — Número de commits no PR
+Unidade: contagem.
+Fonte: API.
+
+- M4 — Presença ou ausência de arquivos de teste
+Unidade: booleano + contagem.
+Fonte: diff.
+
+- M5 — Complexidade total do PR (LOC + num arquivos + num commits)
+Unidade: índice numérico.
+Fonte: cálculo a partir das outras métricas.
+
+### Q3 - Existem diferenças relevantes nos padrões de rejeição entre os projetos analisados?
+
+- M1 - Taxa de rejeição por projeto
+Proporção de PRs rejeitados em cada repositório.
+Unidade: %.
+Fonte: API.
+
+- M2 — Tamanho médio dos PRs rejeitados por projeto
+Média de LOC entre PRs rejeitados, comparando repositórios.
+Unidade: linhas.
+Fonte: diff + API.
+
+- M3 — Distribuição dos motivos de rejeição por projeto
+Quais motivos aparecem mais em cada projeto.
+Unidade: % por categoria.
+Fonte: comentários + NLP.
+
+- M4 — Tempo médio até rejeição (time-to-close)
+Quanto tempo o PR leva para ser fechado sem merge.
+Unidade: horas/dias.
+Fonte: timestamps.
+
+- M5 — Experiência média do autor dos PRs rejeitados por projeto
+Quantidade de contribuições prévias dos autores rejeitados, comparando repositórios.
+Unidade: contagem de PRs anteriores.
+Fonte: API (histórico do autor).
+
+# 4. Escopo e contexto do experimento
+## 4.1 Escopo funcional / de processo (incluído e excluído)
 Explique claramente o que será coberto (atividades, artefatos, equipes, módulos) e o que ficará fora do experimento, para evitar interpretações divergentes.
 
-4.2 Contexto do estudo (tipo de organização, projeto, experiência)
+Coberto:
+- Análise de Pull Requests rejeitados em projetos Open Source hospedados no GitHub.
+- Coleta de dados estruturais (LOC, arquivos modificados, commits, presença de testes).
+- Coleta de dados sociais/comunicacionais (comentários, experiência do autor, motivos de rejeição).
+- Processamento de linguagem natural (NLP) para identificar padrões textuais em comentários.
+- Comparação entre diferentes repositórios para observar padrões distintos de rejeição.
+- Identificação de fatores que aumentam a probabilidade de um PR ser rejeitado.
+
+Fora:
+- Analise do código fonte dos PRs
+- Recomendações de correções para os PRs rejeitados
+- Análise de PRs privados ou internos de empresas
+
+## 4.2 Contexto do estudo (tipo de organização, projeto, experiência)
 Caracterize o contexto em que o estudo ocorrerá: tipo e tamanho de organização, tipo de projeto, criticidade e perfil de experiência dos participantes.
 
-4.3 Premissas
+O estudo será realizado no contexto de comunidades de software Open Source distribuídas, compostas por mantenedores experientes, colaboradores eventuais e novos contribuidores. Esses projetos funcionam com regras próprias de governança, revisão de código e políticas de contribuição, normalmente documentadas em arquivos como CONTRIBUTING.md e CODE_OF_CONDUCT.md. (não sei o que coloco aqui: tamanho de organização, o chat me deu isso)
+
+A pesquisa irá utilizar projetos de grande porte e muito utilizado por qualquer tipo de sistema ou usuario do ramo de programação, além de serem repositorios com alto volume de PRs e de colaborações ativas. Nesses projetos, os participantes, autores dos PRs, possuem diferentes níveis de experiência, desde pequenas contribuições feitas por iniciantes até contribuições contínuas de desenvolvedores mais experientes. (Preciso explicar o que é PR nesse contexto?)
+
+## 4.3 Premissas
 Liste as suposições consideradas verdadeiras para o plano funcionar (por exemplo, disponibilidade de ambiente, estabilidade do sistema), mesmo que não possam ser garantidas.
 
-4.4 Restrições
+- A API do GitHub permanecerá estável e acessível durante todo o período de coleta.
+- Os repositórios selecionados manterão seus dados públicos e disponíveis.
+- Os comentários registrados nos PRs refletem de forma honesta e direta os motivos de rejeição.
+- A classificação textual feita com NLP conseguirá identificar padrões significativos.
+- A amostra de projetos escolhidos representará adequadamente práticas comuns em OSS.
+- As métricas coletadas (LOC, arquivos modificados, histórico do autor etc.) são suficientes para identificar fatores relevantes de rejeição.
+
+## 4.4 Restrições
 Registre limitações práticas como tempo, orçamento, ferramentas, acessos ou regras organizacionais que impõem limites ao desenho.
 
-4.5 Limitações previstas
+- Tempo limitado para coleta, processamento e análise dos dados.
+- Limites de rate limit da GitHub API, podendo exigir coleta por etapas.
+- Falta de padronização das mensagens de rejeição entre diferentes projetos.
+- Restrições computacionais do ambiente local (ex.: processamento de NLP mais pesado).
+- Possíveis inconsistências nos dados, como PRs abandonados sem justificativa formal.
+
+## 4.5 Limitações previstas
 Explique fatores que podem prejudicar a generalização dos resultados (validez externa), como contexto muito específico ou amostra pouco representativa.
 
-5. Stakeholders e impacto esperado
-5.1 Stakeholders principais
+- Contexto específico de projetos analisados: padrões de rejeição podem diferir em outros tipos de projetos ou comunidades.
+- Diversidade de governança entre repositórios: cada projeto possui regras próprias, o que pode limitar comparações diretas.
+- Amostra não totalmente representativa do universo do GitHub, por ser  extremamente grande e heterogêneo.
+- Motivos textuais incompletos: muitos PRs são rejeitados sem explicação formal, o que afeta a análise de motivos.
+- Impossibilidade de capturar fatores subjetivos, como percepção do revisor ou decisões baseadas em preferências pessoais.
+- Limitação da análise automática: técnicas de NLP podem não captar nuances mais sutis presentes nos comentários.
+
+# 5. Stakeholders e impacto esperado
+## 5.1 Stakeholders principais
 Liste os grupos ou papéis que têm interesse ou serão impactados pelo experimento (por exemplo, devs, QA, produto, gestores, clientes internos).
 
-5.2 Interesses e expectativas dos stakeholders
+- Mantenedores dos projetos Open Source
+- Contribuidores frequentes
+- Contribuidores iniciantes
+- Comunidade do projeto como um todo (usuários, testers, revisores eventuais e participantes das discussões)
+- Pesquisadores e profissionais de Engenharia de Software
+
+## 5.2 Interesses e expectativas dos stakeholders
 Descreva o que cada grupo espera obter do experimento (insights, evidências, validação de decisão, mitigação de risco, etc.).
 
-5.3 Impactos potenciais no processo / produto
-Antecipe como a execução do experimento pode afetar prazos, qualidade, carga de trabalho ou o próprio produto durante e após o estudo.
+- Mantenedores:
+Esperam compreender melhor os fatores que tornam a revisão mais difícil e os motivos que levam à rejeição de PRs. Buscam evidências que ajudem a tornar o processo mais ágil, claro e consistente.
 
-6. Riscos de alto nível, premissas e critérios de sucesso
-6.1 Riscos de alto nível (negócio, técnicos, etc.)
+- Contribuidores frequentes:
+Têm interesse em saber quais práticas aumentam ou reduzem a chance de rejeição, buscando melhorar a qualidade de suas contribuições e diminuir retrabalho.
+
+- Contribuidores iniciantes: 
+Esperam orientações claras sobre como evitar erros comuns, diminuir frustração com rejeições e entender melhor as expectativas da comunidade.
+
+- Comunidade do projeto:
+Espera benefícios indiretos, como maior estabilidade do código, PRs mais bem estruturados e processos de revisão mais fluídos.
+
+- Pesquisadores e profissionais da área:
+Buscam evidências empíricas que possam alimentar estudos sobre colaboração distribuída, qualidade de código e boas práticas em processos baseados em Pull Requests.
+
+## 5.3 Impactos potenciais no processo / produto
+Impactos potenciais positivos:
+- Maior clareza sobre fatores que tornam PRs mais propensos à rejeição.
+- Melhorias futuras no fluxo de contribuição, reduzindo retrabalho e aumentando qualidade.
+- Contribuidores mais b-em preparados para enviar PRs alinhados às expectativas dos mantenedores.
+- Possibilidade de criação de guidelines mais objetivas e úteis para novos colaboradores.
+
+Impactos potenciais negativos ou neutros:
+
+- A análise pode exigir tempo para coleta e processamento dos dados, sem afetar diretamente o produto, mas consumindo esforço do pesquisador.
+- Como se trata de um estudo observacional, não há impacto direto no código ou nos prazos dos projetos analisados.
+- Diferenças entre projetos podem limitar a generalização dos resultados, exigindo cuidado na interpretação.
+
+# 6. Riscos de alto nível, premissas e critérios de sucesso
+## 6.1 Riscos de alto nível (negócio, técnicos, etc.)
 Identifique os principais riscos para negócio e tecnologia (atrasos, falhas de ambiente, indisponibilidade de dados, etc.) em nível macro.
 
-6.2 Critérios de sucesso globais (go / no-go)
-Defina as condições sob as quais o experimento será considerado útil e viável, inclusive critérios que sustentem uma decisão de seguir ou não com mudanças.
+- Indisponibilidade ou instabilidade da API do GitHub
+- Limites de requisições (rate limit)
+- Dados incompletos ou não padronizados
+- Mudanças inesperadas nos repositórios analisados
+- Complexidade na análise textual
+- Volume de dados maior que o esperado
+- Dependência de interpretação automática (NLP)
 
-6.3 Critérios de parada antecipada (pré-execução)
+## 6.2 Critérios de sucesso globais (go / no-go)
+Defina as condições sob as quais o experimento será considerado útil e viável, inclusive critérios que sustentem uma decisão de seguir ou não com mudanças.
+ 
+GO:
+
+- Coleta completa de dados dos PRs necessários nos repositórios selecionados, sem perda significativa por falhas da API.
+
+- Classificação válida dos motivos de rejeição, obtida por meio da análise dos comentários e confirmação de que as categorias fazem sentido para o contexto.
+
+- Identificação clara de padrões técnicos, como relação entre tamanho do PR, número de arquivos e probabilidade de rejeição.
+
+- Diferenças entre projetos percebidas e documentadas, permitindo comparações objetivas.
+
+- Produção de insights úteis que possam orientar contribuidores e mantenedores sobre como melhorar a qualidade das contribuições e reduzir rejeições desnecessárias.
+
+NO-GO:
+
+- Não houver dados suficientes para análise.
+- Os comentários dos PRs forem escassos ou pouco informativos.
+- A API impedir a coleta consistente dos PRs.
+- O processamento ou classificação via NLP for inconclusivo.
+
+## 6.3 Critérios de parada antecipada (pré-execução)
 Descreva situações em que o experimento deve ser adiado ou cancelado antes de começar (falta de recursos críticos, reprovação ética, mudanças de contexto).
 
-7. Modelo conceitual e hipóteses
-7.1 Modelo conceitual do experimento
+- Indisponibilidade total da API do GitHub por período prolongado.
+- Impossibilidade de acessar os repositórios selecionados, seja por privacidade, exclusão ou arquivamento.
+- Falta de recursos técnicos essenciais, como máquina para executar os scripts, ambiente de Python configurado ou acesso à internet estável.
+- Volume insuficiente de PRs rejeitados, impossibilitando análise estatística.
+- Mudança significativa no escopo do projeto, como retirada de repositórios importantes ou alteração do tema de pesquisa.
+- Problemas éticos ou de política dos repositórios, caso algum projeto não permita mineração de dados conforme licenças ou guidelines.
+
+# 7. Modelo conceitual e hipóteses
+## 7.1 Modelo conceitual do experimento
 Explique, em texto ou esquema, como você acredita que os fatores influenciam as respostas (por exemplo, “técnica A reduz defeitos em relação a B”).
 
-7.2 Hipóteses formais (H0, H1)
+## 7.2 Hipóteses formais (H0, H1)
 Formule explicitamente as hipóteses nulas e alternativas para cada questão principal, incluindo a direção esperada do efeito quando fizer sentido.
 
-7.3 Nível de significância e considerações de poder
+## 7.3 Nível de significância e considerações de poder
 Defina o nível de significância (por exemplo, α = 0,05) e comente o que se espera em termos de poder estatístico, relacionando-o ao tamanho de amostra planejado.
 
 8. Variáveis, fatores, tratamentos e objetos de estudo
