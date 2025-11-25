@@ -443,33 +443,61 @@ Identifique fatores que podem distorcer os resultados (como diferenças de conte
 ## 9.1 Tipo de desenho (completamente randomizado, blocos, fatorial, etc.)
 Indique qual tipo de desenho será utilizado e justifique brevemente por que ele é adequado ao problema e às restrições.
 
+O estudo adota um desenho de Estudo Observacional Retrospectivo,  classificado no contexto de Engenharia de Software como Mining Software Repositories - MSR.
+
+Justificativa: Não haverá intervenção direta no ambiente de desenvolvimento ou manipulação de variáveis em tempo real (o que caracterizaria um experimento controlado). Ao invés disso, o estudo analisa dados históricos de Pull Requests que já foram processados, aceitos ou rejeitados. O objetivo é observar correlações e padrões de causa e efeito, rejeição, baseando-se em eventos passados, permitindo a análise de um volume de dados muito superior ao que seria viável em um experimento laboratorial controlada.
+
 ## 9.2 Randomização e alocação
 Explique o que será randomizado (sujeitos, tarefas, ordem de tratamentos) e como a randomização será feita na prática (ferramentas, procedimentos).
+
+Como o estudo é observacional, não haverá randomização de sujeitos, tarefas ou tratamentos no sentido clássico, uma vez que os Pull Requests já foram criados, revisados e aceitos ou rejeitados antes do início do experimento. A randomização será aplicada estritamente na ordem de análise dos dados para evitar viés de inspeção manual ou subjetividade durante a leitura. Por exemplo, ao inspecionar os comentários para refinar as categorias dos motivos de rejeição, a leitura será feita em uma ordem aleatória para impedir que padrões temporais ou fadiga influenciem a classificação.
+
+Além disso, quando for tecnicamente inviável analisar o conjunto total de dados manualmente — como na etapa de rotulação humana para treinar ou validar o algoritmo de NLP — selecionarei amostras menores (por exemplo, 100 PRs rejeitados) através de sorteio aleatório a partir do conjunto maior. Para operacionalizar isso, utilizarei scripts em Python com funções nativas de randomização ou comandos de amostragem em arquivos CSV, garantindo que a escolha não seja tendenciosa. É importante deixar claro que esse processo se refere apenas à seleção de subconjuntos para inspeção e não implica na alocação de tratamentos aos participantes.
 
 ## 9.3 Balanceamento e contrabalanço
 Descreva como você garantirá que os grupos fiquem comparáveis (balanceamento) e como lidará com efeitos de ordem ou aprendizagem (contrabalanço).
 
+É esperado que a base de dados extraída do GitHub apresente um desbalanceamento natural, pois na prática existem muito mais PRs pequenos e simples do que contribuições complexas, assim como a quantidade de PRs aceitos costuma superar a de rejeitados. Não realizarei um balanceamento artificial ou descarte aleatório de dados durante a coleta para tentar igualar os grupos, pois isso distorceria a realidade do ecossistema que estamos tentando entender. Para mitigar o impacto desse desbalanceamento na validade das conclusões, o controle será feito na etapa de análise estatística, utilizando testes não paramétricos que são robustos a distribuições não normais e capazes de lidar com grupos de tamanhos desiguais.
+
 ## 9.4 Número de grupos e sessões
 Informe quantos grupos existirão e quantas sessões ou rodadas cada sujeito ou grupo irá executar, com uma breve justificativa.
+
+O experimento consiste em uma única fase de execução focada na mineração e processamento dos dados. Os grupos de comparação não são segregados antes do início do estudo, mas sim categorizados a posteriori com base nos níveis das variáveis independentes coletadas. Dessa forma, os PRs serão divididos logicamente durante a análise entre grupos de alta e baixa complexidade, grupos de autores com e sem experiência prévia no projeto, e grupos de contribuições que possuem ou não testes automatizados, permitindo o cruzamento dessas características com os motivos de rejeição identificados.
+
+## 9.5 Fluxograma
+
+![Fluxograma do desenho experimental detalhando a coleta e análise de dados](/imgs/fluxograma.png)
 
 # 10. População, sujeitos e amostragem
 ## 10.1 População-alvo
 Descreva qual é a população real que você deseja representar com o experimento (por exemplo, “desenvolvedores Java de times de produto web”).
 
+A população-alvo deste estudo é formada por colaboradores de projetos de software Open Source que utilizam o GitHub como plataforma principal de desenvolvimento e adotam um fluxo de trabalho baseado em Pull Requests. Isso inclui autores de PRs, revisores e mantenedores que participam ativamente do processo de contribuição e revisão de código. De forma mais concreta, o estudo busca representar desenvolvedores que contribuem para projetos de médio e grande porte, com alto volume de PRs e práticas consolidadas de revisão, independentemente da linguagem de programação ou domínio específico do projeto.
+
 ## 10.2 Critérios de inclusão de sujeitos
 Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
+
+Como o estudo é observacional e baseado em dados históricos, os sujeitos são considerados de forma indireta, a partir de suas ações registradas na plataforma. Para que um participante seja incluído, ele deve ter atuado como autor, revisor ou mantenedor em um dos repositórios selecionados. No caso dos autores, serão considerados elegíveis aqueles que tiverem enviado pelo menos um Pull Request dentro da janela temporal definida para o estudo e cujo PR contenha alterações de código ou arquivos de teste, e não apenas ajustes triviais ou mudanças cosméticas de documentação. Revisores e mantenedores serão incluídos sempre que tiverem interagido com os PRs analisados por meio de comentários, revisões de código ou decisões explícitas de aceitação ou rejeição.
 
 ## 10.3 Critérios de exclusão de sujeitos
 Liste condições que impedem participação (conflitos de interesse, falta de skills essenciais, restrições legais ou éticas).
 
+Serão excluídos do estudo participantes que não representem contribuições humanas típicas ao processo de desenvolvimento. Isso inclui contas de bots e automações que abrem PRs automaticamente (por exemplo, ferramentas de atualização de dependências) e contas que apenas executam tarefas mecânicas sem tomada de decisão humana explícita. Também serão excluídos PRs de repositórios claramente marcados como exemplos didáticos, projetos de teste ou material de treinamento, quando isso estiver sinalizado na própria descrição do repositório, para evitar que padrões artificiais de sala de aula distorçam os resultados.
+
 ## 10.4 Tamanho da amostra planejado (por grupo)
 Defina quantos participantes você pretende ter no total e em cada grupo, relacionando a decisão com poder, recursos e contexto.
+
+O tamanho da amostra será definido com base na disponibilidade de dados em repositórios com alta atividade. O plano é trabalhar com projetos que possuam pelo menos 3000 Pull Requests rejeitados, o que já garante uma base robusta para análises estatísticas. Considerando dois ou mais repositórios que atendam a esse critério, espera-se obter, no mínimo, alguns milhares de PRs no conjunto total de dados, incluindo tanto PRs rejeitados quanto aceitos, para permitir comparações entre grupos. Em termos de grupos analíticos, pretende-se formar conjuntos suficientemente grandes de PRs pequenos, médios e grandes, bem como grupos com e sem testes e com autores de diferentes níveis de experiência. A ideia não é fixar um número exato de participantes por grupo, como em experimentos controlados com pessoas em laboratório, mas sim ter uma quantidade razoável de observações.
 
 ## 10.5 Método de seleção / recrutamento
 Explique como os participantes serão escolhidos (amostra de conveniência, sorteio, convite aberto, turma de disciplina, time específico).
 
+O processo de seleção ocorrerá em duas etapas principais. Primeiro, serão escolhidos os repositórios que atendam aos critérios de inclusão, como volume mínimo de PRs rejeitados, atividade contínua e relevância no ecossistema Open Source. Essa seleção poderá ser feita por conveniência, a partir de listas públicas de projetos populares ou bem avaliados, sempre buscando diversidade de domínios e tecnologias. Em seguida, dentro de cada repositório selecionado, os Pull Requests serão coletados via API, utilizando filtros por data, status (aceito ou rejeitado) e outros metadados. Caso seja necessário reduzir o volume para análises qualitativas mais detalhadas, como a rotulagem manual de motivos de rejeição, serão sorteadas amostras aleatórias ou estratificadas a partir do conjunto maior, preservando a representatividade dos grupos de interesse
+
 ## 10.6 Treinamento e preparação dos sujeitos
 Descreva qual treinamento ou material preparatório será fornecido para nivelar entendimento e reduzir vieses por falta de conhecimento.
+
+Não havera treinamento
 
 ### 11. Instrumentação e protocolo operacional
 ## 11.1 Instrumentos de coleta (questionários, logs, planilhas, etc.)
