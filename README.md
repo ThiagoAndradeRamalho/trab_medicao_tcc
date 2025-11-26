@@ -79,18 +79,7 @@ O objetivo é analisar quais fatores técnicos, sociais e de comunicação influ
 | | Q4.3 - Projetos maiores são mais rápidos para rejeitar PR? | M5, M15 |
 
 
-
-## 3.2 Objetivos específicos
-Decomponha o objetivo geral em metas mais focadas (O1, O2, etc.), que descrevam resultados concretos de aprendizado ou decisão que o experimento deve gerar.
-
-- O1: Identificar e organizar quais PRs foram rejeitados nos projetos analisados
-- O2: Avaliar se caracteristicas técnicas, como tamanho, número de arquivos modificados, presença de testes, influenciam a rejeição.
-- O3: Analisar se as experiencias do autor correspondem com a realidade dos motivos gerais das rejeições.
-- O4: Identificar os comentários mais citados pelos revisores de PRs.
-- O5: Comparar diferentes reportitorios com o intuito e identificar se ha um padrão nas rejeições ou são variados.
-
-
-## 3.4 Métricas associadas (GQM)
+## 3.2 Métricas associadas (GQM)
 
 | Métrica | Descrição da Métrica                                | Unidade             |
 |---------|-----------------------------------------------------|--------------------------------|
@@ -225,8 +214,8 @@ NO-GO:
 
 ## 6.3 Critérios de parada antecipada (pré-execução)
 
-- Indisponibilidade total da API do GitHub por período prolongado.
-- Impossibilidade de acessar os repositórios selecionados, seja por privacidade, exclusão ou arquivamento.
+- Indisponibilidade total da API do GitHub por um grande periodo
+- Acesso negado em repositórios selecionados, seja por privacidade, exclusão ou arquivamento.
 - Volume insuficiente de PRs rejeitados, impossibilitando análise estatística.
 - Retirada de repositórios importantes ou alteração do tema de pesquisa.
 - Problemas relacionados a lei ao coletar dados de repositorios.
