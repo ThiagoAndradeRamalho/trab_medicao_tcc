@@ -61,41 +61,24 @@ Clareza da descrição e justificativas fornecidas constituem elementos comunica
 
 # 3. Objetivos e questões (Goal / Question / Metric)
 ## 3.1 Objetivo geral (Goal template)
-O objetivo é analisar quais fatores técnicos, sociais e de comunicação influenciam a rejeição de Pull Requests em projetos Open Source, com o propósito de entender padrões e causas, melhorar a qualidade das contribuições e ajudar colaboradores no processo de revisão.
+O objetivo é analisar quais fatores técnicos, sociais e de comunicação influenciam a rejeição de Pull Requests em projetos Open Source, com o propósito de entender padrões e causas, melhorar a qualidade das contribuições.
 
 | Objetivo | Questões | Métricas |
 |------------------|-------------------|------------------------------|
-| O1 - Identificar os motivos textuais mais frequentes nas rejeições de PRs. | Q1.1 - Quais são os motivos mais citados pelos revisores ao rejeitar PRs? | M1, M2 |
+| O1 - Identificar os motivos textuais mais frequentes nas rejeições de PRs. | Q1.1 - Quais são os motivos mais citados quando se rejeita os PRs? | M1, M2 |
 | | Q1.2 - Qual é a frequência de cada motivo de rejeição? | M2, M3 |
-| | Q1.3 - O tempo até o primeiro comentário crítico influencia a rejeição? | M4, M5 |
+| | Q1.3 - O tempo para ser feito o primeiro comentário possui influencia na rejeição? | M4, M5 |
 | O2 - Avaliar o impacto do tamanho e complexidade do PR na rejeição. | Q2.1 - PRs maiores (em LOC) são rejeitados com mais frequência? | M6, M10 |
 | | Q2.2 - PRs que alteram muitos arquivos têm maior risco de rejeição? | M7, M10 |
 | | Q2.3 - O número de commits afeta a rejeição? | M8, M10 |
-| O3 - Investigar fatores sociais e experiência do autor. | Q3.1 - A experiência prévia do autor reduz a probabilidade de rejeição? | M11, M12 |
+| O3 - Analisar o impacto dos fatores sociais na rejeição dos PRs. | Q3.1 - A experiência do autor reduz a probabilidade de rejeição? | M11, M12 |
 | | Q3.2 - PRs de autores iniciantes recebem mais feedback negativo? | M1, M13 |
 | | Q3.3 - Autores experientes esperam menos tempo até revisão? | M5, M12 |
-| O4 - Comparar padrões de rejeição entre diferentes projetos. | Q4.1 - A taxa de rejeição varia entre projetos? | M14, M15 |
-| | Q4.2 - Cada projeto possui motivos distintos de rejeição? | M1, M16 |
-| | Q4.3 - Projetos maiores rejeitam PRs mais rapidamente? | M5, M15 |
+| O4 - Quais os padrões de rejeição entre diferentes projetos. | Q4.1 - A taxa de rejeição varia entre projetos? | M14, M15 |
+| | Q4.2 - Cada projeto possui diferentes tipos de rejeição? | M1, M16 |
+| | Q4.3 - Projetos maiores são mais rápidos para rejeitar PR? | M5, M15 |
 
-| Métricas | Descrição da Métrica | Unidade |
-|-----------------|--------------------------|-------------|
-| M1 - Categoria do motivo | Classificação textual dos motivos de rejeição (ex.: falta de testes, escopo errado). | Categoria textual |
-| M2 - Frequência do motivo | Quantas vezes cada motivo aparece nas rejeições. | Contagem / % |
-| M3 - Número total de comentários | Total de comentários registrados no PR. | Contagem |
-| M4 - Presença de feedback negativo explícito | Detecção de palavras-chave negativas (“too big”, “reject”, “missing tests”). | Booleano / contagem |
-| M5 - Tempo até o primeiro comentário crítico | Tempo entre a abertura do PR e o primeiro comentário negativo. | Horas/dias |
-| M6 - LOC (linhas adicionadas/removidas) | Número total de linhas alteradas no PR. | Linhas |
-| M7 - Arquivos modificados | Quantidade de arquivos alterados. | Contagem |
-| M8 - Número de commits | Total de commits incluídos no PR. | Contagem |
-| M9 - Presença de arquivos de teste | Identifica se o PR criou ou alterou testes. | Booleano / contagem |
-| M10 - Índice de complexidade do PR | Medida composta (LOC + arquivos + commits). | Índice numérico |
-| M11 - Experiência do autor (PRs anteriores aceitos) | Número de contribuições bem-sucedidas do autor no projeto. | Contagem |
-| M12 - Histórico total do autor | Total de PRs enviados pelo autor (aceitos + rejeitados). | Contagem |
-| M13 - Sentimento do comentário | Polaridade da mensagem (positivo/negativo). | Escala (-1 a 1) |
-| M14 - Taxa de rejeição por projeto | Proporção de PRs rejeitados em cada repositório. | Porcentagem |
-| M15 - Tamanho médio dos PRs rejeitados | Média de LOC entre PRs rejeitados dentro de cada projeto. | Linhas |
-| M16 - Distribuição dos motivos por projeto | Frequência de cada motivo de rejeição por repositório. | % por categoria |
+
 
 ## 3.2 Objetivos específicos
 Decomponha o objetivo geral em metas mais focadas (O1, O2, etc.), que descrevam resultados concretos de aprendizado ou decisão que o experimento deve gerar.
@@ -106,138 +89,72 @@ Decomponha o objetivo geral em metas mais focadas (O1, O2, etc.), que descrevam 
 - O4: Identificar os comentários mais citados pelos revisores de PRs.
 - O5: Comparar diferentes reportitorios com o intuito e identificar se ha um padrão nas rejeições ou são variados.
 
-## 3.3 Questões de pesquisa / de negócio
-Formule perguntas claras que o experimento deverá responder (Q1, Q2, etc.), em linguagem que faça sentido para os stakeholders técnicos e de negócio.
-
-Q1: Quais são os motivos mais recorrentes nos comentários de PRs rejeitados?
-Q2: PRs maiores ou que alteram muitos arquivos são rejeitados com mais frequência?
-Q3: Existem diferenças relevantes nos padrões de rejeição entre os projetos analisados?
 
 ## 3.4 Métricas associadas (GQM)
-Associe a cada questão as métricas que serão usadas para respondê-la, com nome, definição, unidade e fonte dos dados, garantindo alinhamento entre G, Q e M.
 
-### Q1 - Quais são os motivos mais recorrentes nos comentários de PRs rejeitados?
-- M1 - Classificação do motivo de rejeição(muitos arqivos, falta de testes, padrão incorreto) / 
-   Unidade: categoria textual.
-   Fonte: comentários via API + NLP.
-
-- M2 - Frequência do motivo / 
-  Unidade: contagem / %.
-  Fonte: comentários dos PRs.
-
-- M3 - Quantidade total de comentários por PR / 
-Unidade: número de comentários.
-Fonte: API.
-
-- M4 - Presença de feedback negativo explícito /
-Unidade: número de comentários.
-Fonte: API.
-
-- M5 - Tempo até o primeiro comentário de crítica / 
-Unidade: horas/dias.
-Fonte: timestamps da API.
-
-### Q2 - PRs maiores ou que alteram muitos arquivos são rejeitados com mais frequência?
-
-- M1 - Linhas adicionadas/removidas (LOC) / 
-Unidade: linhas.
-Fonte: diff.
-
-- M2 - Número de arquivos modificados
-Unidade: contagem.
-Fonte: API.
-
-- M3 - Número de commits no PR
-Unidade: contagem.
-Fonte: API.
-
-- M4 - Presença ou ausência de arquivos de teste
-Unidade: booleano + contagem.
-Fonte: diff.
-
-- M5 - Complexidade total do PR (LOC + num arquivos + num commits)
-Unidade: índice numérico.
-Fonte: cálculo a partir das outras métricas.
-
-### Q3 - Existem diferenças relevantes nos padrões de rejeição entre os projetos analisados?
-
-- M1 - Taxa de rejeição por projeto
-Proporção de PRs rejeitados em cada repositório.
-Unidade: %.
-Fonte: API.
-
-- M2 - Tamanho médio dos PRs rejeitados por projeto
-Média de LOC entre PRs rejeitados, comparando repositórios.
-Unidade: linhas.
-Fonte: diff + API.
-
-- M3 - Distribuição dos motivos de rejeição por projeto
-Quais motivos aparecem mais em cada projeto.
-Unidade: % por categoria.
-Fonte: comentários + NLP.
-
-- M4 - Tempo médio até rejeição (time-to-close)
-Quanto tempo o PR leva para ser fechado sem merge.
-Unidade: horas/dias.
-Fonte: timestamps.
-
-- M5 - Experiência média do autor dos PRs rejeitados por projeto
-Quantidade de contribuições prévias dos autores rejeitados, comparando repositórios.
-Unidade: contagem de PRs anteriores.
-Fonte: API (histórico do autor).
+| Métrica | Descrição da Métrica                                | Unidade             |
+|---------|-----------------------------------------------------|--------------------------------|
+| M1 - Categoria do motivo           | Tipo de motivo de rejeição do PR.                     | Categoria (texto)              |
+| M2 - Frequência do motivo          | Quantidade de vezes que cada motivo aparece.          | Contagem (n)                   |
+| M3 - Número total de comentários   | Total de comentários em um PR.                        | Contagem (n)                   |
+| M4 - Presença de feedback negativo | Indica se há comentário com crítica/rejeição direta.  | Binária (0 = não, 1 = sim)     |
+| M5 - Tempo até o primeiro comentário crítico | Tempo até o primeiro comentário crítico no PR. | Tempo (horas ou dias)          |
+| M6 - LOC (linhas adicionadas/removidas) | Linhas de código alteradas no PR.                | Linhas de código (LOC)         |
+| M7 - Arquivos modificados          | Número de arquivos alterados no PR.                   | Contagem de arquivos (n)       |
+| M8 - Número de commits             | Total de commits incluídos no PR.                     | Contagem de commits (n)        |
+| M9 - Presença de arquivos de teste | Indica se há arquivos de teste alterados ou criados.  | Binária (0 = não, 1 = sim)     |
+| M10 - Índice de complexidade do PR | Medida combinando tamanho e dispersão do PR.          | Número            |
+| M11 - Experiência do autor         | PRs anteriores aceitos do mesmo autor no projeto.     | Contagem de PRs (n)            |
+| M12 - Histórico total do autor     | Total de PRs enviados pelo autor (aceitos + rejeitados). | Contagem de PRs (n)         |
+| M13 - Sentimento do comentário     | Polaridade média dos comentários do PR.               | Escala numérica (-1 a 1)       |
+| M14 - Taxa de rejeição por projeto | Proporção de PRs rejeitados em um projeto.            | Percentual (%)                 |
+| M15 - Tamanho médio dos PRs rejeitados | Média de LOC dos PRs rejeitados em um projeto.    | Linhas de código (LOC)         |
+| M16 - Distribuição dos motivos por projeto | Participação de cada motivo nas rejeições de um projeto. | Percentual por categoria (%) |
 
 # 4. Escopo e contexto do experimento
 ## 4.1 Escopo funcional / de processo (incluído e excluído)
-Explique claramente o que será coberto (atividades, artefatos, equipes, módulos) e o que ficará fora do experimento, para evitar interpretações divergentes.
 
 Coberto:
-- Análise de Pull Requests rejeitados em projetos Open Source hospedados no GitHub.
-- Coleta de dados estruturais (LOC, arquivos modificados, commits, presença de testes).
-- Coleta de dados sociais/comunicacionais (comentários, experiência do autor, motivos de rejeição).
-- Processamento de linguagem natural (NLP) para identificar padrões textuais em comentários.
-- Comparação entre diferentes repositórios para observar padrões distintos de rejeição.
+- Analise de Pull Requests rejeitados em projetos Open Source hospedados no GitHub.
+- Coleta de dados como LOC, quais os tipos de arquivos modificados, commits, se há presença de testes.
+- Coleta de dados referente a comunicação/perfil dos contribuidores como os comentários do PR, grau de experiência/relevancia do autor nos PRs, motivos de rejeição.
+- Processamento de linguagem natural (NLP) para conseguir identificar os padrões textuais nos comentários dos PRs.
+- Comparação entre diferentes repositórios para identificar padrões diferentes de rejeição.
 - Identificação de fatores que aumentam a probabilidade de um PR ser rejeitado.
 
 Fora:
 - Analise do código fonte dos PRs
-- Recomendações de correções para os PRs rejeitados
-- Análise de PRs privados ou internos de empresas
+- Recomendações de correções para os PRs que foram rejeitados
+- Analise de PRs privados ou internos de empresas
 
 ## 4.2 Contexto do estudo (tipo de organização, projeto, experiência)
-Caracterize o contexto em que o estudo ocorrerá: tipo e tamanho de organização, tipo de projeto, criticidade e perfil de experiência dos participantes.
 
-O estudo será realizado no contexto de comunidades de software Open Source distribuídas, compostas por mantenedores experientes, colaboradores eventuais e novos contribuidores. Esses projetos funcionam com regras próprias de governança, revisão de código e políticas de contribuição, normalmente documentadas em arquivos como CONTRIBUTING.md e CODE_OF_CONDUCT.md. (não sei o que coloco aqui: tamanho de organização, o chat me deu isso)
-
-A pesquisa irá utilizar projetos de grande porte e muito utilizado por qualquer tipo de sistema ou usuario do ramo de programação, além de serem repositorios com alto volume de PRs e de colaborações ativas. Nesses projetos, os participantes, autores dos PRs, possuem diferentes níveis de experiência, desde pequenas contribuições feitas por iniciantes até contribuições contínuas de desenvolvedores mais experientes. (Preciso explicar o que é PR nesse contexto?)
+Analisar Pull Requests rejeitados em projetos de software open source hospedados no GitHub, com o propósito de identificar e compreender os fatores técnicos, sociais e comunicacionais que influenciam a rejeição de contribuições, com respeito a qualidade do processo de revisão e da decisão sobre PRs, do ponto de vista de pesquisadores em Engenharia de Software e de mantenedores de projetos OSS, no contexto de repositórios GitHub de médio e grande porte.
 
 ## 4.3 Premissas
-Liste as suposições consideradas verdadeiras para o plano funcionar (por exemplo, disponibilidade de ambiente, estabilidade do sistema), mesmo que não possam ser garantidas.
 
 - A API do GitHub permanecerá estável e acessível durante todo o período de coleta.
-- Os repositórios selecionados manterão seus dados públicos e disponíveis.
-- Os comentários registrados nos PRs refletem de forma honesta e direta os motivos de rejeição.
-- A classificação textual feita com NLP conseguirá identificar padrões significativos.
-- A amostra de projetos escolhidos representará adequadamente práticas comuns em OSS.
-- As métricas coletadas (LOC, arquivos modificados, histórico do autor etc.) são suficientes para identificar fatores relevantes de rejeição.
+- Os repositórios escolhidos antes da analise continuarao com seus dados públicos e disponíveis.
+- Os comentários doss PRs vao conter os motivos das rejeições dos PRs.
+- A classificação textual feita com NLP vai conseguir identificar padrões.
+- As metricas selecionadas condiz com a realidade e irão ajudar na analise dos dados.
 
 ## 4.4 Restrições
-Registre limitações práticas como tempo, orçamento, ferramentas, acessos ou regras organizacionais que impõem limites ao desenho.
 
 - Tempo limitado para coleta, processamento e análise dos dados.
-- Limites de rate limit da GitHub API, podendo exigir coleta por etapas.
+- Limites de rate limit da API do GitHub pode dividir a coleta por etapas.
 - Falta de padronização das mensagens de rejeição entre diferentes projetos.
-- Restrições computacionais do ambiente local (ex.: processamento de NLP mais pesado).
-- Possíveis inconsistências nos dados, como PRs abandonados sem justificativa formal.
+- Comentários com textos que não correspondem ao contexto do PR.
+- Exigir mais do processamento de NLP dessa forma atrasando mais.
+- PRs rejeitados sem justificativa.
 
 ## 4.5 Limitações previstas
-Explique fatores que podem prejudicar a generalização dos resultados (validez externa), como contexto muito específico ou amostra pouco representativa.
 
-- Contexto específico de projetos analisados: padrões de rejeição podem diferir em outros tipos de projetos ou comunidades.
-- Diversidade de governança entre repositórios: cada projeto possui regras próprias, o que pode limitar comparações diretas.
+- Padrões de rejeição totalmente diferentes um dos outros.
 - Amostra não totalmente representativa do universo do GitHub, por ser  extremamente grande e heterogêneo.
-- Motivos textuais incompletos: muitos PRs são rejeitados sem explicação formal, o que afeta a análise de motivos.
-- Impossibilidade de capturar fatores subjetivos, como percepção do revisor ou decisões baseadas em preferências pessoais.
-- Limitação da análise automática: técnicas de NLP podem não captar nuances mais sutis presentes nos comentários.
+- Motivos textuais incompletos
+- Não ser possível identificar/analisar/capturar comentarios em que possui preferencias pessoais.
+- Limitação da análise automática
 
 # 5. Stakeholders e impacto esperado
 ## 5.1 Stakeholders principais
@@ -246,8 +163,7 @@ Liste os grupos ou papéis que têm interesse ou serão impactados pelo experime
 - Mantenedores dos projetos Open Source
 - Contribuidores frequentes
 - Contribuidores iniciantes
-- Comunidade do projeto como um todo (usuários, testers, revisores eventuais e participantes das discussões)
-- Pesquisadores e profissionais de Engenharia de Software
+- Contribuidores do projeto como um todo (usuários, testers, revisores e participantes dos comentarios dos PRs)
 
 ## 5.2 Interesses e expectativas dos stakeholders
 Descreva o que cada grupo espera obter do experimento (insights, evidências, validação de decisão, mitigação de risco, etc.).
