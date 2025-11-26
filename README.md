@@ -158,7 +158,6 @@ Analisar Pull Requests rejeitados em projetos de software open source hospedados
 
 # 5. Stakeholders e impacto esperado
 ## 5.1 Stakeholders principais
-Liste os grupos ou papéis que têm interesse ou serão impactados pelo experimento (por exemplo, devs, QA, produto, gestores, clientes internos).
 
 - Mantenedores dos projetos Open Source
 - Contribuidores frequentes
@@ -166,29 +165,25 @@ Liste os grupos ou papéis que têm interesse ou serão impactados pelo experime
 - Contribuidores do projeto como um todo (usuários, testers, revisores e participantes dos comentarios dos PRs)
 
 ## 5.2 Interesses e expectativas dos stakeholders
-Descreva o que cada grupo espera obter do experimento (insights, evidências, validação de decisão, mitigação de risco, etc.).
 
 - Mantenedores:
-Esperam compreender melhor os fatores que tornam a revisão mais difícil e os motivos que levam à rejeição de PRs. Buscam evidências que ajudem a tornar o processo mais ágil, claro e consistente.
+Entender melhor quais características dos Pull Requests estão associadas à rejeição e quais os motivos mais comuns nos comentários. Buscam ver o que fazer para reduzir rejeições evitáveis, orientar contribuidores sobre boas práticas e tornar o processo de revisão mais eficiente e previsível.
 
 - Contribuidores frequentes:
-Têm interesse em saber quais práticas aumentam ou reduzem a chance de rejeição, buscando melhorar a qualidade de suas contribuições e diminuir retrabalho.
+Tem interesse em saber em o que fazer para conseguir  aumentar ou reduzir a chance de rejeição, buscando melhorar a qualidade de suas contribuições e diminuir retrabalho.
 
 - Contribuidores iniciantes: 
-Esperam orientações claras sobre como evitar erros comuns, diminuir frustração com rejeições e entender melhor as expectativas da comunidade.
+Esperam orientações claras sobre como evitar erros comuns, diminuir rejeições e entender melhor como contribuir em um projeto.
 
 - Comunidade do projeto:
 Espera benefícios indiretos, como maior estabilidade do código, PRs mais bem estruturados e processos de revisão mais fluídos.
 
-- Pesquisadores e profissionais da área:
-Buscam evidências empíricas que possam alimentar estudos sobre colaboração distribuída, qualidade de código e boas práticas em processos baseados em Pull Requests.
 
 ## 5.3 Impactos potenciais no processo / produto
 Impactos potenciais positivos:
-- Maior clareza sobre fatores que tornam PRs mais propensos à rejeição.
-- Melhorias futuras no fluxo de contribuição, reduzindo retrabalho e aumentando qualidade.
-- Contribuidores mais b-em preparados para enviar PRs alinhados às expectativas dos mantenedores.
-- Possibilidade de criação de guidelines mais objetivas e úteis para novos colaboradores.
+- Maior clareza sobre motivos que tornam PRs com mais chance de rejeição.
+- Melhorias futuras nas contribuições, reduzindo retrabalho e aumentando qualidade.
+- Contribuidores mais preparados para contribuir
 
 Impactos potenciais negativos ou neutros:
 
@@ -198,7 +193,6 @@ Impactos potenciais negativos ou neutros:
 
 # 6. Riscos de alto nível, premissas e critérios de sucesso
 ## 6.1 Riscos de alto nível (negócio, técnicos, etc.)
-Identifique os principais riscos para negócio e tecnologia (atrasos, falhas de ambiente, indisponibilidade de dados, etc.) em nível macro.
 
 - Indisponibilidade ou instabilidade da API do GitHub
 - Limites de requisições (rate limit)
@@ -209,7 +203,6 @@ Identifique os principais riscos para negócio e tecnologia (atrasos, falhas de 
 - Dependência de interpretação automática (NLP)
 
 ## 6.2 Critérios de sucesso globais (go / no-go)
-Defina as condições sob as quais o experimento será considerado útil e viável, inclusive critérios que sustentem uma decisão de seguir ou não com mudanças.
  
 GO:
 
@@ -231,14 +224,12 @@ NO-GO:
 - O processamento ou classificação via NLP for inconclusivo.
 
 ## 6.3 Critérios de parada antecipada (pré-execução)
-Descreva situações em que o experimento deve ser adiado ou cancelado antes de começar (falta de recursos críticos, reprovação ética, mudanças de contexto).
 
 - Indisponibilidade total da API do GitHub por período prolongado.
 - Impossibilidade de acessar os repositórios selecionados, seja por privacidade, exclusão ou arquivamento.
-- Falta de recursos técnicos essenciais, como máquina para executar os scripts, ambiente de Python configurado ou acesso à internet estável.
 - Volume insuficiente de PRs rejeitados, impossibilitando análise estatística.
-- Mudança significativa no escopo do projeto, como retirada de repositórios importantes ou alteração do tema de pesquisa.
-- Problemas éticos ou de política dos repositórios, caso algum projeto não permita mineração de dados conforme licenças ou guidelines.
+- Retirada de repositórios importantes ou alteração do tema de pesquisa.
+- Problemas relacionados a lei ao coletar dados de repositorios.
 
 # 7. Modelo conceitual e hipóteses
 ## 7.1 Modelo conceitual do experimento
