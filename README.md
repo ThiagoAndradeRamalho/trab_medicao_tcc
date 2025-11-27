@@ -397,29 +397,42 @@ Não havera treinamento
 
 ### 11. Instrumentação e protocolo operacional
 ## 11.1 Instrumentos de coleta (questionários, logs, planilhas, etc.)
-Liste todos os instrumentos que serão usados para coletar dados (arquivos, formulários, scripts, ferramentas), com uma breve descrição do papel de cada um.
+
+Os dados serão coletados atrvés de scripts em Pyhton que irão consultar a API do GitHub, e coletar as métricas selecionadas dos repositorios e seus respectivos PRs. Os scripts serão eorganizados em módulos separados para facilitar manutenção. Sendo um módulo para coleta bruta de PRs, ou outro em coleta de comentários e um terceiro voltado à derivação de métricas, como LOC, número de arquivos modificados, experiência do autor e status do PR. Para analise dos dados, serão salvos em arquivos CSV, e gerados a partir de scripts gráficos e tabelas para visualização e compreensão melhor dos dados.
 
 ## 11.2 Materiais de suporte (instruções, guias)
-Descreva as instruções escritas, guias rápidos, slides ou outros materiais que serão fornecidos a participantes e administradores do experimento.
+
+Serão documentados, como forma de manual, os passo a passo para conseguir executar os scripts de coletas, quais as versões das dependencias e como instala-las, configuração de tokens de acesso da API do GitHub além do mapa da metodologia para conseguir compreender e replicar todas as partes da pesquisa.
 
 ## 11.3 Procedimento experimental (protocolo – visão passo a passo)
-Escreva, em ordem, o que acontecerá na operação (do convite ao encerramento), de modo que alguém consiga executar o experimento seguindo esse roteiro.
+
+Primeiro seleciona os repositórios que possuem no mínimo 2000 PRs rejeitados e que são Open Source. Após essa seleção inicial, o pesquisador configura o ambiente de execução dos scripts, incluindo instalação de dependências, configuração do token de acesso da API do GitHub. Em seguida, são executados os scripts de coleta, que consultam a API, percorrem os PRs de cada repositório, armazenam os dados relevantes e extraem também os comentários associados a cada PR.
+
+Com os dados brutos coletados, é iniciado a etapa de limpeza e preparação, removendo registros duplicados, identificação de PRs automáticos ou de bots, correção de campos inconsistentes e cálculo das métricas como LOC, número de arquivos, commits, experiência do autor tempo até rejeição, etc. Nessa mesma etapa é feita uma exploração dos comentários para verificar se os textos conseguem ser classificados por motivos. Depois seleciona uma  amostra de PRs rejeitados para fazer uma rotulagem semi-automática dos motivos de rejeição.
+
+Após a rotulagem e as métricas em mãos, os dados são organizados em conjuntos adequados para análise estatística, com grupos definidos por tamanho de PR, presença de testes, experiência do autor e projeto. Depois  serão aplicados os testes e análises. Por fim, os resultados são interpretados e comparados com hipóteses formuladas chegando a uma conclusão.
 
 ## 11.4 Plano de piloto (se haverá piloto, escopo e critérios de ajuste)
-Indique se um piloto será realizado, com que participantes e objetivos, e defina que tipo de ajuste do protocolo poderá ser feito com base nesse piloto.
+
+Será realizado um piloto com uma coleta de teste em um conjunto reduzido de repositórios, com o objetivo principal de verificar se todas as métricas estão sendo coletadas e calculadas corretamente. Nessa fase, os scripts serão executados em escala menor para identificar problemas nas requisições à API, como erros de autenticação, campos ausentes ou impactos de rate limit, permitindo ajustar tanto a lógica de coleta quanto mecanismos de retry, paginação e pausas entre requisições.
 
 ### 12. Plano de análise de dados (pré-execução)
 ## 12.1 Estratégia geral de análise (como responderá às questões)
-Explique, em alto nível, como os dados coletados serão usados para responder cada questão de pesquisa ou de negócio.
+
+A analise usara métricas quantitativas extraídas dos Pull Requests com avaliação qualitativa dos comentários associados às rejeições. Para analisar os motivos mais recorrentes, será utilizada a classificação temática dos comentários, permitindo identificar padrões, categorias e frequências. Para a analise do impacto do tamanho e do volume de mudanças na rejeição, serão comparadas distribuições de métricas como LOC, número de commits e arquivos modificados entre PRs aceitos e PRs rejeitados. E para as diferenças entre projetos, será respondida por meio da comparação estatística entre repositórios, analisando se a taxa de rejeição, a distribuição dos motivos e as características dos PRs variam de forma significativa entre contextos diferntes.
 
 ## 12.2 Métodos estatísticos planejados
 Liste os principais testes ou técnicas estatísticas que pretende usar (por exemplo, t-teste, ANOVA, testes não paramétricos, regressão).
 
+Os métodos estatísticos previstos incluem testes não paramétricos como Mann-Whitney U para comparar medidas contínuas entre grupos (por exemplo, LOC de PRs aceitos vs. rejeitados), já que distribuições de PRs tendem a ser assimétricas. Para variáveis categóricas, como presença/ausência de testes ou tipo de motivo de rejeição, serão aplicados testes de qui-quadrado para avaliar associação entre categorias. Caso seja necessário modelar influencers múltiplos simultaneamente, também poderá ser empregada regressão logística para estimar a probabilidade de rejeição com base em múltiplos fatores (tamanho, experiência do autor, número de commits etc.). Para comparações entre projetos, serão utilizadas análises segmentadas por repositório e testes de diferença entre taxas, complementados por visualizações de distribuição e densidade.
+
 ## 12.3 Tratamento de dados faltantes e outliers
-Defina previamente as regras para lidar com dados ausentes e valores extremos, evitando decisões oportunistas após ver os resultados.
+
+Caso tenha ausensia de informação estrutural, como PR sem comentário,o valor vai ser considerado ainda como categoria válida. Mas se a ausencia for erro na coleta, o PR será removido da métrica específica, mas não de toda a analise. Em relação aos outliers, serão identificados atraves dos gráficos boxplots e histogramas, dessa forma se caso for identificado comportamentos reais, como por exemplo, PRs muito grandes, serão mantidos na análise específica, mas não deixaram de ser excluidos de analises especificas se houver visivelmente um erro na API ou contagem incorreta.
 
 ## 12.4 Plano de análise para dados qualitativos (se houver)
-Descreva como você tratará dados qualitativos (entrevistas, comentários, observações), especificando a técnica de análise (codificação, categorias, etc.).
+
+Os comentários dos PRs rejeitados serão analisados por meio de codificação qualitativa, seguindo um processo de atribuição de categorias, como falta de testes, mudança muito grande, violação de padrão, violação da arquitetura, escopo inadequado, etc. A codificação será inicializada de forma aberta, podendo serem criadas novas categorias ou associadas a outras ja existentes em cada analise de PR. A frequência de cada categoria será quantificada, com isso vai ser possível identificar os motivos mais comuns citados pelos revisores e comparar padrões entre projetos.
 
 ### 13. Avaliação de validade (ameaças e mitigação)
 ## 13.1 Validade de conclusão
