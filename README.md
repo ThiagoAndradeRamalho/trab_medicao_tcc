@@ -227,7 +227,7 @@ A rejeição de Pull Requests é influenciada por um conjunto de fatores técnic
 ### Fatores técnicos:
 PRs maiores, seja código, arquivo, commits, requer mais esforço para revisar, tendo assim uma atenção maior por estar alterando ou adicionando mais coisas ao projeto.
 
-PRs sem testes ou com alterações em arquivos críticos(arquivos comumente conhecidos como arquivos críticos), requer cuidado em áreas sensíveis sem validação, dessa forma tendo um cuidado maior e analizando mais calmamente tendo uma chance maior de rejeição.
+PRs sem testes ou com alterações em arquivos críticos, requer cuidado em áreas sensíveis sem validação, dessa forma tendo um cuidado maior e analizando mais calmamente, tendo uma chance maior de rejeição.
 
 ### Fatores sociais/experiência
 
@@ -243,122 +243,104 @@ Motivos sendo repetidos nos comentários da revisão, seja por falta de teste, a
 
 
 ## 7.2 Hipóteses formais (H0, H1)
-Formule explicitamente as hipóteses nulas e alternativas para cada questão principal, incluindo a direção esperada do efeito quando fizer sentido.
 
-  Q1 - 
+Q1 - 
 - H0 - Não existem motivos padronizados nos comentários de PRs rejeitados,  os motivos são específicos para cada PR.
-- H1 - Existem motivos predominantes nos comentários, como falta de testes, mudança grande demais, fora de escopo, aparecendo frequentemente nos comentários de PRs rejeitados.
+- H1 - Existem motivos predominantes nos comentários, como falta de testes, mudanças em muitos arquivos críticos, fora de escopo, aparecendo frequentemente nos comentários de PRs rejeitados.
   
 Q2 
 - H0 - Não há diferença na taxa de rejeição entre PRs pequenos e PRs maiores, LOC, número de arquivos modificados ou número de commits.
 - H1 - PRs maiores apresentam uma taxa de rejeição significativamente maior do que PRs menores.
 
 Q3 - 
-- H0 - A experiência do autor, medida por histórico de PRs anteriores no projeto não significa em uma probabilidade maior de rejeição de novos PRs.
-- H1 - Autores com mais experiência, ou seja, mais PRs aceitos, têm uma probabilidade menor de terem seus PRs rejeitados, quando comparados a autores com pouca ou nenhuma experiência.
+- H0 - A experiência do autor, snedo por histórico de PRs anteriores no projeto não significa em uma probabilidade maior de rejeição de novos PRs.
+- H1 - Autores com mais experiência, ou seja, mais PRs aceitos ou bastante tempo desde sua primeira contribuição no repositorio, têm uma probabilidade menor de terem seus PRs rejeitados, quando comparados a autores com pouca ou nenhuma experiência.
 
 Q4 - 
 - H0 - Não existe diferenças nas taxas de rejeição e nos motivos de rejeição dos projetos, todos os repositórios possuem os mesmos padrões.
 - H1 - Existem diferenças nas taxas de rejeição ou motivos comuns de rejeição entre os projetos.
 
 ## 7.3 Nível de significância e considerações de poder
-Defina o nível de significância (por exemplo, α = 0,05) e comente o que se espera em termos de poder estatístico, relacionando-o ao tamanho de amostra planejado.
 
-A pesquisa possui nível de significância α = 0,05, tendo assim um risco de 5% de rejeitar a hipótese nula quando verdadeira. Para a análise será utilizado uma amostra de milhares de PRs, para conseguir dessa forma ter um porder estatístico capaz de concluir os objetivos da pesquisa e identificar as diferenças entre os dados analisados, como PRs menores ou maiores, autores iniciantes ou experientes, etc.
+A pesquisa possui nível de significância α = 0.05, com um risco de 5% de rejeitar a hipótese nula quando verdadeira. Para a análise será utilizado uma amostra de milhares de PRs, para conseguir dessa forma ter um porder estatístico capaz de concluir os objetivos da pesquisa e identificar as diferenças entre os dados analisados, como PRs menores ou maiores, autores iniciantes ou experientes, etc.
 
 # 8. Variáveis, fatores, tratamentos e objetos de estudo
 ## 8.1 Objetos de estudo
-Descreva o que será efetivamente manipulado ou analisado (módulos de código, requisitos, tarefas, casos de teste, issues, etc.).
 
 Os objetos de estudo deste experimento são focados nos PRs rejeitados, fechados sem merge, de projetos Open Source hospedados no GitHub. Além  dos comentários associados aos PRs, focando aos que possuem justificativas ou feedback dos revisores.
 
-Metadados dos PRs, como número de arquivos modificados, quantidade de linhas alteradas (LOC), número de commits, presença de arquivos de teste, datas de abertura e fechamento, e histórico do desenvolvedor.
+Metadados dos PRs, como número de arquivos modificados, quantidade de linhas alteradas (LOC), número de commits, se possui de arquivos de teste, datas de abertura e fechamento, e histórico do desenvolvedor.
 
 ## 8.2 Sujeitos / participantes (visão geral)
-Caracterize em alto nível quem serão os participantes (desenvolvedores, testadores, estudantes, etc.), sem ainda entrar em detalhes de seleção.
 
 Os participantes da pesquisa são desenvolvedores(com diferentes níveis de experiência) que enviaram contribuições(PRs), aos projetos OSS. Além de revisores/ mantenedores, que são os desenvolvedores responsáveis por avaliar, comentar, aceitar ou rejeitar PRs.
 
 ## 8.3 Variáveis independentes (fatores) e seus níveis
-Liste os fatores que serão manipulados (por exemplo, técnica, ferramenta, processo) e indique os níveis de cada um (A/B, X/Y, alto/baixo).
 
-| **Tipo**              | **Variável**          | **Descrição**                                                            | **Níveis**                                      |
+| **Fator**              | **Variável**          | **Descrição**                                                            | **Níveis**                                      |
 |-----------------------|-----------------------|-------------------------------------------------------------------------|-----------------------------------------------------------|
-| Fator técnico         | Tamanho do PR (LOC)   | Quantidade de linhas adicionadas/removidas no Pull Request.            | Baixo / Médio / Alto (faixas definidas na análise)        |
-| Fator técnico         | Arquivos modificados  | Número total de arquivos alterados pelo PR.                             | Poucos arquivos / Muitos arquivos                         |
-| Fator técnico         | Número de commits     | Total de commits incluídos no PR.                                       | Poucos commits / Muitos commits                           |
-| Fator técnico         | Presença de testes    | Indica se o PR criou ou modificou arquivos de teste.                    | Com testes / Sem testes                                   |
-| Fator social          | Experiência do autor  | Quantidade de PRs anteriores enviados/aceitos pelo autor no projeto.    | Iniciante / Intermediário / Experiente                    |
-| Fator de contexto     | Projeto / Repositório | Identifica de qual projeto o PR faz parte.                              | Projeto A / Projeto B / Projeto C (e outros escolhidos)   |
+| Técnico         | Tamanho do PR (LOC)   | Quantidade de linhas adicionadas/removidas no Pull Request.            | Baixo / Médio / Alto (faixas definidas na análise)        |
+| Técnico        | Arquivos modificados  | Número total de arquivos alterados pelo PR.                             | Poucos arquivos / Muitos arquivos                         |
+| Técnico         | Número de commits     | Total de commits incluídos no PR.                                       | Poucos commits / Muitos commits                           |
+| Técnico         | Presença de testes    | Indica se o PR criou ou modificou arquivos de teste.                    | Com testes / Sem testes                                   |
+| Social          | Experiência do autor  | Quantidade de PRs anteriores enviados/aceitos pelo autor no projeto.    | Iniciante / Intermediário / Experiente                    |
 
 ## 8.4 Tratamentos (condições experimentais)
-Descreva claramente cada condição de experimento (grupo controle, tratamento 1, tratamento 2, etc.) e o que distingue uma da outra.
 
-| **Condição**        | **Nome / Papel**        | **Descrição da condição**                                                                                       | **O que distingue essa condição das outras**                                                |
-|---------------------|-------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
-| C0                  | Grupo controle          | PRs pequenos (baixa LOC), poucos arquivos modificados, com testes e enviados por autores experientes.           | Representa o cenário considerado “mais favorável”: mudanças menores, com testes e experiência. |
-| C1                  | Tratamento 1 – PRs grandes | PRs com alto número de linhas alteradas (alta LOC), independentemente de testes ou experiência.              | Mudanças extensas; avalia impacto direto do tamanho do PR na rejeição.                      |
-| C2                  | Tratamento 2 – Muitos arquivos | PRs que modificam muitos arquivos, mesmo que não tenham tantas linhas por arquivo.                           | Foca na dispersão da mudança pelo código, e não só na quantidade de linhas.                 |
-| C3                  | Tratamento 3 – Sem testes | PRs que não criam nem modificam arquivos de teste.                                                              | Compara cenários com e sem suporte de testes automatizados.                                 |
-| C4                  | Tratamento 4 – Autores iniciantes | PRs enviados por autores com pouca experiência (poucos PRs anteriores no projeto).                           | Analisa impacto da experiência do autor na rejeição, comparado ao grupo controle.           |
-| C5                  | Tratamento 5 – Autores experientes | PRs enviados por autores com histórico forte de contribuições aceitas.                                       | Permite comparar iniciantes vs experientes em termos de rejeição e motivos.                 |
-| C6                  | Tratamento 6 – Projeto mais rígido | PRs de um projeto com alta taxa de rejeição global e/ou regras de contribuição mais rígidas.                 | Ajuda a entender influência da cultura de revisão do projeto.                               |
-| C7                  | Tratamento 7 – Projeto mais flexível | PRs de um projeto com taxa de rejeição menor e aceitação mais frequente.                                     | Serve de contraste com o projeto mais rígido, isolando efeito do contexto de repositório.   |
+| **Condição**        | **Nome / Papel**        | **Descrição da condição**                                                                                       |
+|---------------------|-------------------------|------------------------------------------------------------------------------------------------------------------|
+| Grupo controle          | PRs pequenos (baixa LOC), poucos arquivos modificados, com testes e enviados por autores experientes.           | Representa o cenário considerado “mais favorável”: mudanças menores, com testes e experiência. |
+|  PRs grandes | PRs com alto número de linhas alteradas (alta LOC), independentemente de testes ou experiência.              | Mudanças extensas; avalia impacto direto do tamanho do PR na rejeição.                      |
+|  Muitos arquivos | PRs que modificam muitos arquivos, mesmo que não tenham tantas linhas por arquivo.                           | Foca na dispersão da mudança pelo código, e não só na quantidade de linhas.                 |
+|  Sem testes | PRs que não criam nem modificam arquivos de teste.                                                              | Compara cenários com e sem suporte de testes automatizados.                                 |
+|  Autores iniciantes | PRs enviados por autores com pouca experiência (poucos PRs anteriores no projeto).                           | Analisa impacto da experiência do autor na rejeição, comparado ao grupo controle.           |
+| Autores experientes | PRs enviados por autores com histórico forte de contribuições aceitas.                                       | Permite comparar iniciantes vs experientes em termos de rejeição e motivos.                 |
+|  Projeto mais rígido | PRs de um projeto com alta taxa de rejeição global e/ou regras de contribuição mais rígidas.                 | Ajuda a entender influência da cultura de revisão do projeto.                               |
+|  Projeto mais flexível | PRs de um projeto com taxa de rejeição menor e aceitação mais frequente.                                     | Serve de contraste com o projeto mais rígido, isolando efeito do contexto de repositório.   |
 
-## 8.5 Variáveis dependentes (respostas)
-Informe as medidas de resultado que você observará (por exemplo, número de defeitos, esforço em horas, tempo de conclusão, satisfação).
+## 8.5 Variáveis dependentes
 
-| **Variáveis Dependentes**        | **Descrição**                                                                                         | **Unidade / Tipo**                 |
+
+| **Variáveis Dependentes**        | **Descrição**                                                                                         | **Unidade Tipo**                 |
 |--------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------|
-| Status do PR                   | Indica se o Pull Request foi rejeitado (fechado sem merge) ou aceito (merge realizado).              | Categórica (Aceito / Rejeitado)    |
-| Motivos de rejeição            | Categorias textuais que resumem as razões de rejeição presentes nos comentários dos revisores.       | Categórica (labels de motivo)      |
-| Frequência de cada motivo      | Quantas vezes cada tipo de motivo de rejeição aparece entre os PRs analisados.                        | Contagem / Porcentagem             |
-| Tempo até rejeição             | Intervalo entre a abertura do PR e o fechamento sem merge (quando rejeitado).                        | Contínua (horas / dias)            |
-| Quantidade de comentários      | Número total de comentários feitos no PR, incluindo discussões técnicas e pedidos de ajuste.         | Contínua (contagem)                |
-| Feedback negativo explícito    | Presença de críticas diretas ou termos que indiquem rejeição ou problemas graves na contribuição.    | Categórica (Presente / Ausente)    |
+| Motivos de rejeição            | Categorias dos motivos de rejeição presentes nos comentários dos revisores.       | Categórica / Texto      |
+| Frequência de cada motivo      | Quantas vezes cada tipo de motivo de rejeição aparece nos PRs.                        | Contagem / Porcentagem             |
+| Tempo até rejeição             | Intervalo entre a abertura do PR até a rejeição.                        | Tempo de conclusão            |
+| Quantidade de comentários      | Número total de comentários feitos no PR         | Contagem               |
 
 ## 8.6 Variáveis de controle / bloqueio
-Liste fatores que você não está estudando diretamente, mas que serão mantidos constantes ou usados para formar blocos (por exemplo, experiência, tipo de tarefa).
 
 | **Variável de controle** | **Descrição**                                                                                      | **Como será usada**                                             |
 |--------------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| Janela temporal          | Período de tempo dos PRs analisados, para evitar misturar épocas muito diferentes do projeto.     | Mantida fixa (ex.: PRs entre 2020 e 2025).                      |
-| Tipo de projeto          | Natureza do repositório (framework, biblioteca, ferramenta, etc.).                                | Usado para formar blocos ou grupos, não como foco principal.    |
-| Critério mínimo de PRs   | Seleção de repositórios com volume mínimo (ex.: ≥ 500 PRs rejeitados) para garantir base de dados.| Mantido constante como critério de inclusão de projetos.        |
+| Popularidade          | Indicador do alcance do projeto.     | Em uma faixa definada para homogeneidade                      |
+| Critério mínimo de PRs   | Volume mínimo de PRs rejeitados por repositório | Critério fixo de inclusão        |
+| Tempo de atividade recente   | Garantia de que o projeto não está abandonado.| Ao menos 30 PRs no último ano        |
 
 
 ## 8.7 Possíveis variáveis de confusão conhecidas
-Identifique fatores que podem distorcer os resultados (como diferenças de contexto, motivação ou carga de trabalho) e que você pretende monitorar.
 
 | **Variável de confusão**              | **Descrição**                                                                                                            | **Como será tratada**                                                   |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | Cultura de revisão do projeto         | Diferenças de rigor, estilo e critérios de revisão entre projetos, que podem afetar taxas de rejeição e motivos declarados. | Monitorada por comparação entre projetos e discutida como possível viés. |
-| Motivação / carga de trabalho dos revisores | Situações de sobrecarga, pouco tempo ou baixa motivação, que podem levar a decisões mais rápidas ou mais restritivas.   | Não é observável diretamente; será reconhecida e discutida como limitação. |
+| Motivação / carga de trabalho dos revisores | Situações de sobrecarga, pouco tempo ou baixa motivação, que podem levar a decisões mais rápidas ou mais restritivas.   | Será reconhecida e discutida como limitação. |
 
 # 9. Desenho experimental
-## 9.1 Tipo de desenho (completamente randomizado, blocos, fatorial, etc.)
-Indique qual tipo de desenho será utilizado e justifique brevemente por que ele é adequado ao problema e às restrições.
+## 9.1 Tipo de desenho 
 
-O estudo adota um desenho de Estudo Observacional Retrospectivo,  classificado no contexto de Engenharia de Software como Mining Software Repositories - MSR.
-
-Justificativa: Não haverá intervenção direta no ambiente de desenvolvimento ou manipulação de variáveis em tempo real (o que caracterizaria um experimento controlado). Ao invés disso, o estudo analisa dados históricos de Pull Requests que já foram processados, aceitos ou rejeitados. O objetivo é observar correlações e padrões de causa e efeito, rejeição, baseando-se em eventos passados, permitindo a análise de um volume de dados muito superior ao que seria viável em um experimento laboratorial controlada.
+O estudo é observacional pois analisamos dados históricos de PRs que já foram processados, revisados e rejeitados em projetos. Portanto não há grupos de tratamento definidos a priori, os grupos são formados depois a partir de variáveis técnicas e sociais observadas nos PRs.
 
 ## 9.2 Randomização e alocação
-Explique o que será randomizado (sujeitos, tarefas, ordem de tratamentos) e como a randomização será feita na prática (ferramentas, procedimentos).
 
-Como o estudo é observacional, não haverá randomização de sujeitos, tarefas ou tratamentos no sentido clássico, uma vez que os Pull Requests já foram criados, revisados e aceitos ou rejeitados antes do início do experimento. A randomização será aplicada estritamente na ordem de análise dos dados para evitar viés de inspeção manual ou subjetividade durante a leitura. Por exemplo, ao inspecionar os comentários para refinar as categorias dos motivos de rejeição, a leitura será feita em uma ordem aleatória para impedir que padrões temporais ou fadiga influenciem a classificação.
+Na etapa de rotulação humana para treinar/validar o algoritmo de NLP, será utilizado a randomização, assim serão selecionados amostras menores, por exemplo, 100 PRs rejeitados, através de sorteio aleatório a partir do conjunto maior.
 
-Além disso, quando for tecnicamente inviável analisar o conjunto total de dados manualmente — como na etapa de rotulação humana para treinar ou validar o algoritmo de NLP — selecionarei amostras menores (por exemplo, 100 PRs rejeitados) através de sorteio aleatório a partir do conjunto maior. Para operacionalizar isso, utilizarei scripts em Python com funções nativas de randomização ou comandos de amostragem em arquivos CSV, garantindo que a escolha não seja tendenciosa. É importante deixar claro que esse processo se refere apenas à seleção de subconjuntos para inspeção e não implica na alocação de tratamentos aos participantes.
 
 ## 9.3 Balanceamento e contrabalanço
-Descreva como você garantirá que os grupos fiquem comparáveis (balanceamento) e como lidará com efeitos de ordem ou aprendizagem (contrabalanço).
 
-É esperado que a base de dados extraída do GitHub apresente um desbalanceamento natural, pois na prática existem muito mais PRs pequenos e simples do que contribuições complexas, assim como a quantidade de PRs aceitos costuma superar a de rejeitados. Não realizarei um balanceamento artificial ou descarte aleatório de dados durante a coleta para tentar igualar os grupos, pois isso distorceria a realidade do ecossistema que estamos tentando entender. Para mitigar o impacto desse desbalanceamento na validade das conclusões, o controle será feito na etapa de análise estatística, utilizando testes não paramétricos que são robustos a distribuições não normais e capazes de lidar com grupos de tamanhos desiguais.
+É esperado que alguns tipos de rejeição, como “falta de testes” ou “mudança muito grande” sejam bem mais frequentes do que outros. Dessa forma o  controle será feito na análise, assim categorias muito raras poderão se tornar um grupo genérico, e as comparações entre motivos de rejeição levarão em conta o tamanho desigual dos grupos.
 
 ## 9.4 Número de grupos e sessões
-Informe quantos grupos existirão e quantas sessões ou rodadas cada sujeito ou grupo irá executar, com uma breve justificativa.
 
-O experimento consiste em uma única fase de execução focada na mineração e processamento dos dados. Os grupos de comparação não são segregados antes do início do estudo, mas sim categorizados a posteriori com base nos níveis das variáveis independentes coletadas. Dessa forma, os PRs serão divididos logicamente durante a análise entre grupos de alta e baixa complexidade, grupos de autores com e sem experiência prévia no projeto, e grupos de contribuições que possuem ou não testes automatizados, permitindo o cruzamento dessas características com os motivos de rejeição identificados.
+Os grupos de comparação, no caso os tipos de rejeição, só vão ser categorizados após a coleta, baseando nos níveis das variáveis independentes coletadas. Dessa forma o número exato de grupos depende da combinação de fatores usada em cada análise, mas sempre nasce das variáveis observadas nos próprios dados.
 
 ## 9.5 Fluxograma
 
@@ -434,7 +416,7 @@ Caso tenha ausensia de informação estrutural, como PR sem comentário,o valor 
 
 Os comentários dos PRs rejeitados serão analisados por meio de codificação qualitativa, seguindo um processo de atribuição de categorias, como falta de testes, mudança muito grande, violação de padrão, violação da arquitetura, escopo inadequado, etc. A codificação será inicializada de forma aberta, podendo serem criadas novas categorias ou associadas a outras ja existentes em cada analise de PR. A frequência de cada categoria será quantificada, com isso vai ser possível identificar os motivos mais comuns citados pelos revisores e comparar padrões entre projetos.
 
-### 13. Avaliação de validade (ameaças e mitigação)
+# 13. Avaliação de validade (ameaças e mitigação)
 ## 13.1 Validade de conclusão
 Liste ameaças que podem comprometer a robustez das conclusões estatísticas (baixo poder, violação de suposições, erros de medida) e como pretende mitigá-las.
 
@@ -450,30 +432,30 @@ Discuta em que contextos os resultados podem ser generalizados e quais diferenç
 ## 13.5 Resumo das principais ameaças e estratégias de mitigação
 Faça uma síntese das ameaças mais críticas e das ações planejadas, de preferência em forma de lista ou tabela simples.
 
-14. Ética, privacidade e conformidade
-14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
+# 14. Ética, privacidade e conformidade
+## 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
 Descreva potenciais questões éticas (pressão para participar, uso de estudantes, incentivos, riscos de exposição) e como serão tratadas.
 
-14.2 Consentimento informado
+## 14.2 Consentimento informado
 Explique como os participantes serão informados sobre objetivos, riscos, benefícios e como registrarão seu consentimento.
 
-14.3 Privacidade e proteção de dados
+## 14.3 Privacidade e proteção de dados
 Indique que dados pessoais serão coletados, como serão protegidos (anonimização, pseudoanonimização, controle de acesso) e por quanto tempo serão mantidos.
 
-14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
+## 14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
 Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética, jurídico, DPO, gestores) e o status atual dessas aprovações.
 
-15. Recursos, infraestrutura e orçamento
-15.1 Recursos humanos e papéis
+# 15. Recursos, infraestrutura e orçamento
+## 15.1 Recursos humanos e papéis
 Identifique os membros da equipe do experimento e descreva brevemente o papel e responsabilidade de cada um.
 
-15.2 Infraestrutura técnica necessária
+## 15.2 Infraestrutura técnica necessária
 Liste ambientes, servidores, ferramentas, repositórios e integrações que devem estar disponíveis para executar o experimento.
 
-15.3 Materiais e insumos
+## 15.3 Materiais e insumos
 Relacione materiais físicos ou digitais necessários (máquinas, licenças, formulários, dispositivos) que precisam estar prontos antes da operação.
 
-15.4 Orçamento e custos estimados
+## 15.4 Orçamento e custos estimados
 Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviços, licenças, infraestrutura) e a fonte de financiamento.
 
 16. Cronograma, marcos e riscos operacionais
