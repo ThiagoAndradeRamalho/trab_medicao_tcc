@@ -348,29 +348,24 @@ Os grupos de comparação, no caso os tipos de rejeição, só vão ser categori
 
 # 10. População, sujeitos e amostragem
 ## 10.1 População-alvo
-Descreva qual é a população real que você deseja representar com o experimento (por exemplo, “desenvolvedores Java de times de produto web”).
 
 A população-alvo deste estudo é formada por colaboradores de projetos de software Open Source que utilizam o GitHub como plataforma principal de desenvolvimento e adotam um fluxo de trabalho baseado em Pull Requests. Isso inclui autores de PRs, revisores e mantenedores que participam ativamente do processo de contribuição e revisão de código. De forma mais concreta, o estudo busca representar desenvolvedores que contribuem para projetos de médio e grande porte, com alto volume de PRs e práticas consolidadas de revisão, independentemente da linguagem de programação ou domínio específico do projeto.
 
 ## 10.2 Critérios de inclusão de sujeitos
-Especifique os requisitos mínimos para um participante ser elegível (experiência, conhecimento, papel, disponibilidade, etc.).
 
 Como o estudo é observacional e baseado em dados históricos, os sujeitos são considerados de forma indireta, a partir de suas ações registradas na plataforma. Para que um participante seja incluído, ele deve ter atuado como autor, revisor ou mantenedor em um dos repositórios selecionados. No caso dos autores, serão considerados elegíveis aqueles que tiverem enviado pelo menos um Pull Request dentro da janela temporal definida para o estudo e cujo PR contenha alterações de código ou arquivos de teste, e não apenas ajustes triviais ou mudanças cosméticas de documentação. Revisores e mantenedores serão incluídos sempre que tiverem interagido com os PRs analisados por meio de comentários, revisões de código ou decisões explícitas de aceitação ou rejeição.
 
 ## 10.3 Critérios de exclusão de sujeitos
-Liste condições que impedem participação (conflitos de interesse, falta de skills essenciais, restrições legais ou éticas).
 
 Serão excluídos do estudo participantes que não representem contribuições humanas típicas ao processo de desenvolvimento. Isso inclui contas de bots e automações que abrem PRs automaticamente (por exemplo, ferramentas de atualização de dependências) e contas que apenas executam tarefas mecânicas sem tomada de decisão humana explícita. Também serão excluídos PRs de repositórios claramente marcados como exemplos didáticos, projetos de teste ou material de treinamento, quando isso estiver sinalizado na própria descrição do repositório, para evitar que padrões artificiais de sala de aula distorçam os resultados.
 
 ## 10.4 Tamanho da amostra planejado (por grupo)
-Defina quantos participantes você pretende ter no total e em cada grupo, relacionando a decisão com poder, recursos e contexto.
 
-O tamanho da amostra será definido com base na disponibilidade de dados em repositórios com alta atividade. O plano é trabalhar com projetos que possuam pelo menos 3000 Pull Requests rejeitados, o que já garante uma base robusta para análises estatísticas. Considerando dois ou mais repositórios que atendam a esse critério, espera-se obter, no mínimo, alguns milhares de PRs no conjunto total de dados, incluindo tanto PRs rejeitados quanto aceitos, para permitir comparações entre grupos. Em termos de grupos analíticos, pretende-se formar conjuntos suficientemente grandes de PRs pequenos, médios e grandes, bem como grupos com e sem testes e com autores de diferentes níveis de experiência. A ideia não é fixar um número exato de participantes por grupo, como em experimentos controlados com pessoas em laboratório, mas sim ter uma quantidade razoável de observações.
+O tamanho da amostra será definido com base na disponibilidade de dados em repositórios com alta atividade,  com projetos que possuam pelo menos 3000 Pull Requests rejeitados. Considerando no mínimo cem repositórios que atendam a esse critério, espera-se obter, no mínimo, 300 mil PRs rejeitados. Em relação aos grupos analíticos, irei formar conjuntos suficientemente grandes de PRs pequenos, médios e grandes, bem como grupos com e sem testes e com autores de diferentes níveis de experiência. A ideia não é fixar um número exato de participantes por grupo tendo quantidade razoável de observações.
 
 ## 10.5 Método de seleção / recrutamento
-Explique como os participantes serão escolhidos (amostra de conveniência, sorteio, convite aberto, turma de disciplina, time específico).
 
-O processo de seleção ocorrerá em duas etapas principais. Primeiro, serão escolhidos os repositórios que atendam aos critérios de inclusão, como volume mínimo de PRs rejeitados, atividade contínua e relevância no ecossistema Open Source. Essa seleção poderá ser feita por conveniência, a partir de listas públicas de projetos populares ou bem avaliados, sempre buscando diversidade de domínios e tecnologias. Em seguida, dentro de cada repositório selecionado, os Pull Requests serão coletados via API, utilizando filtros por data, status (aceito ou rejeitado) e outros metadados. Caso seja necessário reduzir o volume para análises qualitativas mais detalhadas, como a rotulagem manual de motivos de rejeição, serão sorteadas amostras aleatórias ou estratificadas a partir do conjunto maior, preservando a representatividade dos grupos de interesse
+O processo de seleção ocorrerá em duas etapas principais. Primeiro, serão escolhidos os repositórios que atendam aos critérios de inclusão, como volume mínimo de PRs rejeitados, atividade contínua e relevância no ecossistema Open Source, repositorios com mais estrelas. Em seguida, dentro de cada repositório selecionado, os Pull Requests serão coletados via API, utilizando filtros por data, status de rejeitado e outros metadados.
 
 ## 10.6 Treinamento e preparação dos sujeitos
 Descreva qual treinamento ou material preparatório será fornecido para nivelar entendimento e reduzir vieses por falta de conhecimento.
@@ -401,10 +396,9 @@ Será realizado um piloto com uma coleta de teste em um conjunto reduzido de rep
 ### 12. Plano de análise de dados (pré-execução)
 ## 12.1 Estratégia geral de análise (como responderá às questões)
 
-A analise usara métricas quantitativas extraídas dos Pull Requests com avaliação qualitativa dos comentários associados às rejeições. Para analisar os motivos mais recorrentes, será utilizada a classificação temática dos comentários, permitindo identificar padrões, categorias e frequências. Para a analise do impacto do tamanho e do volume de mudanças na rejeição, serão comparadas distribuições de métricas como LOC, número de commits e arquivos modificados entre PRs aceitos e PRs rejeitados. E para as diferenças entre projetos, será respondida por meio da comparação estatística entre repositórios, analisando se a taxa de rejeição, a distribuição dos motivos e as características dos PRs variam de forma significativa entre contextos diferntes.
+A analise usara métricas quantitativas extraídas dos Pull Requests com avaliação qualitativa dos comentários associados às rejeições. Para analisar os motivos mais recorrentes, será utilizada a classificação temática dos comentários, permitindo identificar padrões, categorias e frequências. Para a analise do impacto do tamanho e do volume de mudanças na rejeição, serão comparadas distribuições de métricas como LOC, número de commits e arquivos modificados em PRs rejeitados. E para as diferenças entre projetos, será respondida por meio da comparação estatística entre repositórios, analisando se a taxa de rejeição, a distribuição dos motivos e as características dos PRs variam de forma significativa entre contextos diferntes.
 
 ## 12.2 Métodos estatísticos planejados
-Liste os principais testes ou técnicas estatísticas que pretende usar (por exemplo, t-teste, ANOVA, testes não paramétricos, regressão).
 
 Os métodos estatísticos previstos incluem testes não paramétricos como Mann-Whitney U para comparar medidas contínuas entre grupos (por exemplo, LOC de PRs aceitos vs. rejeitados), já que distribuições de PRs tendem a ser assimétricas. Para variáveis categóricas, como presença/ausência de testes ou tipo de motivo de rejeição, serão aplicados testes de qui-quadrado para avaliar associação entre categorias. Caso seja necessário modelar influencers múltiplos simultaneamente, também poderá ser empregada regressão logística para estimar a probabilidade de rejeição com base em múltiplos fatores (tamanho, experiência do autor, número de commits etc.). Para comparações entre projetos, serão utilizadas análises segmentadas por repositório e testes de diferença entre taxas, complementados por visualizações de distribuição e densidade.
 
