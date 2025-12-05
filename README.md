@@ -412,19 +412,35 @@ Os comentários dos PRs rejeitados serão analisados por meio de codificação q
 
 # 13. Avaliação de validade (ameaças e mitigação)
 ## 13.1 Validade de conclusão
-Liste ameaças que podem comprometer a robustez das conclusões estatísticas (baixo poder, violação de suposições, erros de medida) e como pretende mitigá-las.
+A validade de conclusão está ligada à força das evidências estatísticas que conectam os fatores analisados (tamanho do PR, presença de testes, experiência do autor, projeto etc.) à rejeição de Pull Requests. Uma ameaça importante é o risco de baixo poder estatístico em alguns subgrupos, por exemplo, projetos menores ou categorias de motivo de rejeição pouco frequentes. Para mitigar isso, serão selecionados apenas repositórios com volume mínimo de PRs rejeitados e, sempre que possível, os grupos de comparação serão definidos de forma a manter um número razoável de observações em cada estrato.
+
+Outra ameaça é a violação de suposições dos testes estatísticos, como normalidade ou homocedasticidade. Como os dados de PRs tendem a ser assimétricos e com caudas pesadas, serão priorizados testes não paramétricos (como Mann-Whitney e qui-quadrado), que são mais robustos a esse tipo de violação. Adicionalmente, haverá cuidado na interpretação de correlações, evitando confundir associação com causalidade e reforçando que se trata de um estudo observacional. Erros de medida também podem afetar a conclusão, especialmente no cálculo de métricas derivadas (por exemplo, LOC ou experiência do autor), por isso as fórmulas e regras de cálculo serão definidas previamente e testadas no piloto.
 
 ## 13.2 Validade interna
-Identifique ameaças relacionadas a causas alternativas para os efeitos observados (history, maturation, selection, etc.) e explique suas estratégias de controle.
+Na validade interna, a principal preocupação é a existência de causas alternativas para os padrões observados. Como o estudo não controla o ambiente, é possível que fatores não observados, como mudanças de políticas internas do projeto, períodos de alta demanda ou entrada de novos mantenedores, influenciem tanto as características dos PRs quanto a probabilidade de rejeição. Essa ameaça será mitigada parcialmente ao restringir a análise a uma janela temporal fixa, reduzindo a mistura de contextos muito diferentes ao longo do tempo.
+
+Outra ameaça clássica é a seleção: os repositórios escolhidos podem ter características específicas que influenciam os resultados. Para reduzir esse problema, a seleção de projetos buscará diversidade em termos de domínio e tecnologia, mas sempre com critérios claros de inclusão (volume mínimo de PRs, atividade contínua, uso de PRs como fluxo principal). Ainda assim, será assumido de forma explícita que não há controle completo de fatores internos de cada projeto, e as conclusões serão formuladas com cautela, evitando afirmar causalidade forte onde só há evidência de associação.
 
 ## 13.3 Validade de constructo
-Refleta se as medidas escolhidas realmente representam os conceitos de interesse e descreva como você reduzirá ambiguidades de interpretação.
+A validade de constructo diz respeito a quão bem as métricas escolhidas representam os conceitos que se deseja estudar. Um ponto sensível é a forma como “complexidade” e “dificuldade de revisão” são operacionalizadas. Métricas como LOC, número de arquivos e commits são aproximações da complexidade estrutural do PR, mas não capturam diretamente a complexidade semântica do código. Para lidar com isso, essas métricas serão sempre interpretadas como proxies de tamanho e dispersão da mudança, e não como medidas perfeitas de complexidade.
+
+Outro aspecto crítico é a definição dos “motivos de rejeição”. A categorização dos comentários envolve interpretação e pode introduzir ambiguidades. Para reduzir esse risco, será criado um guia de codificação com exemplos e critérios claros para cada categoria, e será feita uma fase piloto de rotulagem para ajustar as definições. Sempre que possível, serão usadas expressões presentes nos próprios comentários como base para as categorias, evitando criar constructs muito distantes da forma como os revisores realmente se expressam.
 
 ## 13.4 Validade externa
-Discuta em que contextos os resultados podem ser generalizados e quais diferenças de cenário podem limitar essa generalização.
+A validade externa trata de até onde os resultados podem ser generalizados. Este estudo está centrado em projetos Open Source hospedados no GitHub, com alto volume de PRs e estrutura de revisão mais madura. Assim, os achados têm potencial para generalização para outros projetos OSS com características semelhantes, mas podem não se aplicar diretamente a repositórios muito pequenos, projetos pessoais ou organizações que não utilizam PRs como fluxo formal de integração.
+
+Além disso, contextos industriais fechados, com repositórios privados, políticas internas específicas e times dedicados podem apresentar padrões diferentes de rejeição, especialmente em relação a prazos, prioridades de negócio e práticas de revisão formal. Por isso, a generalização será sempre delimitada: os resultados devem ser entendidos como uma fotografia de projetos OSS populares em determinado recorte temporal, e não como uma regra universal para qualquer ambiente de desenvolvimento de software.
 
 ## 13.5 Resumo das principais ameaças e estratégias de mitigação
-Faça uma síntese das ameaças mais críticas e das ações planejadas, de preferência em forma de lista ou tabela simples.
+| Tipo de validade      | Ameaça principal                                               | Estratégia de mitigação                                                                 |
+|-----------------------|----------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| Conclusão             | Baixo poder em alguns grupos                                  | Selecionar projetos com muitos PRs rejeitados, evitar grupos com amostras muito pequenas. |
+| Conclusão             | Violação de suposições estatísticas                           | Priorizar testes não paramétricos; inspeção visual das distribuições.                   |
+| Interna               | Fatores históricos e mudanças no projeto ao longo do tempo    | Definir janela temporal fixa; analisar resultados por projeto quando fizer sentido.      |
+| Interna               | Seleção de repositórios com características específicas       | Definir critérios claros de inclusão; buscar diversidade de domínio e tecnologia.        |
+| Constructo            | Métricas não capturam perfeitamente complexidade ou dificuldade | Tratar métricas como proxies, explicitar limitações na interpretação dos resultados.     |
+| Constructo            | Ambiguidade na categorização dos motivos de rejeição          | Criar guia de codificação, realizar piloto para ajustar categorias e exemplos.          |
+| Externa               | Resultados limitados a projetos OSS grandes no GitHub         | Delimitar claramente o contexto; evitar generalizações para ambientes muito diferentes. |
 
 # 14. Ética, privacidade e conformidade
 ## 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
