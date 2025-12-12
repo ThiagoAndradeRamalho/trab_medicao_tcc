@@ -444,72 +444,72 @@ Além disso, contextos industriais fechados, com repositórios privados, políti
 
 # 14. Ética, privacidade e conformidade
 ## 14.1 Questões éticas (uso de sujeitos, incentivos, etc.)
-Descreva potenciais questões éticas (pressão para participar, uso de estudantes, incentivos, riscos de exposição) e como serão tratadas.
+Este estudo não envolve intervenção direta com participantes humanos, aplicação de questionários, entrevistas ou incentivos. A pesquisa utiliza exclusivamente dados históricos e públicos disponíveis em repositórios Open Source no GitHub, relacionados a Pull Requests rejeitados e seus comentários. Dessa forma, não há risco de pressão para participação, uso de estudantes como sujeitos experimentais ou exposição deliberada de indivíduos. Ainda assim, reconhece-se o cuidado ético necessário ao analisar interações humanas, mesmo quando públicas, evitando julgamentos individuais ou conclusões que possam estigmatizar contribuidores específicos.
 
 ## 14.2 Consentimento informado
-Explique como os participantes serão informados sobre objetivos, riscos, benefícios e como registrarão seu consentimento.
+Não é necessário consentimento informado individual, uma vez que os dados analisados são públicos, já disponíveis na plataforma GitHub e acessíveis por meio de suas APIs. O estudo segue a prática comum em pesquisas empíricas em Engenharia de Software que analisam dados públicos de repositórios OSS. Em todas as divulgações dos resultados, será deixado claro que os dados foram coletados de fontes públicas e analisados de forma agregada.
 
 ## 14.3 Privacidade e proteção de dados
-Indique que dados pessoais serão coletados, como serão protegidos (anonimização, pseudoanonimização, controle de acesso) e por quanto tempo serão mantidos.
+Os dados coletados incluem informações técnicas dos PRs e metadados públicos, como número de comentários, métricas de código e histórico de contribuições. Identificadores pessoais, como nomes de usuários, serão anonimizados ou substituídos por identificadores internos durante a análise. Não serão divulgadas informações sensíveis nem exemplos que permitam identificar indivíduos específicos. Os dados serão armazenados em ambiente controlado, com acesso restrito ao pesquisador, e mantidos apenas pelo tempo necessário para a execução e validação do estudo.
 
 ## 14.4 Aprovações necessárias (comitê de ética, jurídico, DPO, etc.)
-Liste órgãos ou pessoas que precisam aprovar o experimento (comitê de ética, jurídico, DPO, gestores) e o status atual dessas aprovações.
+Por se tratar de um estudo observacional baseado exclusivamente em dados públicos, não é exigida submissão a comitê de ética em pesquisa com seres humanos. Também não há necessidade de aprovação jurídica ou de DPO, uma vez que não há tratamento de dados pessoais sensíveis nem uso de informações privadas. Caso exigido pela instituição acadêmica, essa justificativa será formalmente documentada.
 
 # 15. Recursos, infraestrutura e orçamento
 ## 15.1 Recursos humanos e papéis
-Identifique os membros da equipe do experimento e descreva brevemente o papel e responsabilidade de cada um.
+O experimento será conduzido pelo próprio autor da pesquisa, responsável pelo planejamento, coleta dos dados, classificação dos motivos de rejeição, análise estatística e interpretação dos resultados. Caso necessário, um orientador acadêmico atuará na revisão metodológica e validação científica das decisões tomadas ao longo do estudo.
 
 ## 15.2 Infraestrutura técnica necessária
-Liste ambientes, servidores, ferramentas, repositórios e integrações que devem estar disponíveis para executar o experimento.
+Será necessário um ambiente computacional local com acesso à internet, linguagem Python instalada e bibliotecas para coleta e análise de dados. Também será utilizado acesso às APIs REST e GraphQL do GitHub, além de ferramentas para análise estatística, visualização de dados e versionamento de código, como Git e GitHub
 
 ## 15.3 Materiais e insumos
-Relacione materiais físicos ou digitais necessários (máquinas, licenças, formulários, dispositivos) que precisam estar prontos antes da operação.
+Os principais insumos do experimento são digitais: scripts de coleta, notebooks de análise, arquivos CSV gerados a partir dos dados coletados e documentação do protocolo. Não há necessidade de materiais físicos, dispositivos especiais ou licenças pagas específicas para a execução do estudo.
 
 ## 15.4 Orçamento e custos estimados
-Faça uma estimativa dos principais custos envolvidos (horas de pessoas, serviços, licenças, infraestrutura) e a fonte de financiamento.
+O experimento não possui custos financeiros diretos. Todo o trabalho será realizado utilizando ferramentas gratuitas e de código aberto, além de infraestrutura pessoal já disponível. O principal custo envolvido é o tempo dedicado pelo pesquisador ao desenvolvimento, execução e análise do estudo.
 
-16. Cronograma, marcos e riscos operacionais
-16.1 Macrocronograma (até o início da execução)
-Defina as principais datas e marcos (conclusão do plano, piloto, revisão, início da operação) com uma visão de tempo realista.
+# 16. Cronograma, marcos e riscos operacionais
+## 16.1 Macrocronograma (até o início da execução)
+O cronograma prevê inicialmente a finalização e revisão do plano experimental, seguida pela implementação e teste dos scripts de coleta. Em seguida, será executado o piloto para validação das métricas e, após os ajustes necessários, terá início a coleta definitiva dos dados. Esse processo será conduzido de forma incremental, respeitando a disponibilidade de dados e os limites de requisição das APIs.
 
-16.2 Dependências entre atividades
-Indique quais atividades dependem de outras para começar (por exemplo, treinamento após aprovação ética), deixando essas dependências claras.
+## 16.2 Dependências entre atividades
+A execução da coleta definitiva depende da finalização do plano experimental e da validação dos scripts no piloto. A análise estatística depende da conclusão da coleta e da correta classificação dos motivos de rejeição. Qualquer atraso nas etapas iniciais impacta diretamente as etapas seguintes.
 
-16.3 Riscos operacionais e plano de contingência
-Liste riscos ligados a cronograma, disponibilidade de pessoas ou recursos, e descreva ações de contingência caso esses riscos se materializem.
+## 16.3 Riscos operacionais e plano de contingência
+Os principais riscos operacionais incluem problemas com limites de requisição da API do GitHub, inconsistências nos dados coletados ou falhas nos scripts. Para mitigar esses riscos, serão implementados mecanismos de controle de rate limit, coleta incremental e validação contínua dos dados. Caso um repositório específico apresente problemas recorrentes, ele poderá ser substituído por outro que atenda aos critérios definidos.
 
-17. Governança do experimento
-17.1 Papéis e responsabilidades formais
-Defina quem decide, quem executa, quem revisa e quem apenas deve ser informado, deixando claro o fluxo de responsabilidade.
+# 17. Governança do experimento
+## 17.1 Papéis e responsabilidades formais
+O pesquisador é responsável por todas as decisões relacionadas ao desenho, execução e análise do experimento. O orientador acadêmico atua como instância de revisão e validação metodológica, contribuindo para decisões críticas quando necessário.
 
-17.2 Ritos de acompanhamento pré-execução
-Descreva as reuniões, checkpoints e revisões previstos antes da execução, incluindo frequência e participantes.
+## 17.2 Ritos de acompanhamento pré-execução
+Antes da execução definitiva, o plano experimental será revisado em conjunto com o orientador. Após o piloto, haverá um checkpoint para avaliar se os instrumentos e métricas estão adequados. Ajustes necessários serão feitos antes do início da coleta em larga escala.  
 
-17.3 Processo de controle de mudanças no plano
-Explique como mudanças no desenho ou no escopo do experimento serão propostas, analisadas, aprovadas e registradas.
+## 17.3 Processo de controle de mudanças no plano
+Qualquer mudança relevante no escopo, métricas ou metodologia será registrada em documento de controle de versões, com justificativa clara e validação pelo orientador. Mudanças que impactem significativamente os objetivos ou a validade do estudo serão evitadas após o início da coleta definitiva.
 
-18. Plano de documentação e reprodutibilidade
-18.1 Repositórios e convenções de nomeação
-Indique onde o plano, instrumentos, scripts e dados (futuros) serão armazenados e quais convenções de nomes serão usadas.
+# 18. Plano de documentação e reprodutibilidade
+## 18.1 Repositórios e convenções de nomeação
+Todos os documentos, scripts e artefatos do experimento serão armazenados em um repositório versionado, com convenções claras de nomes para arquivos, pastas e versões. Isso facilita rastreabilidade e organização do material.
 
-18.2 Templates e artefatos padrão
-Liste os modelos (questionários, formulários, checklists, scripts) que serão usados e onde podem ser encontrados.
+## 18.2 Templates e artefatos padrão
+Todos os documentos, scripts e artefatos do experimento serão armazenados em um repositório versionado, com convenções claras de nomes para arquivos, pastas e versões. Isso facilita rastreabilidade e organização do material.
 
-18.3 Plano de empacotamento para replicação futura
-Descreva o que será organizado desde já (documentos, scripts, instruções) para facilitar a replicação do experimento por outras equipes ou no futuro.
+## 18.3 Plano de empacotamento para replicação futura
+Desde o início, o estudo será organizado de forma a permitir replicação futura, incluindo scripts reutilizáveis, instruções de execução, descrição das métricas e critérios de seleção dos dados. O objetivo é que outros pesquisadores consigam reproduzir o experimento com o mínimo de dependência de conhecimento tácito.
 
-19. Plano de comunicação
-19.1 Públicos e mensagens-chave pré-execução
-Liste os grupos que precisam ser comunicados e quais mensagens principais devem receber (objetivos, escopo, datas, impactos esperados).
+# 19. Plano de comunicação
+## 19.1 Públicos e mensagens-chave pré-execução
+Os principais públicos são o orientador e a banca avaliadora. As mensagens-chave envolvem os objetivos do estudo, o escopo definido, a metodologia adotada e os critérios de validade e ética.
 
-19.2 Canais e frequência de comunicação
-Defina por quais canais (e-mail, reuniões, Slack/Teams, etc.) e com que frequência as comunicações serão feitas.
+## 19.2 Canais e frequência de comunicação
+A comunicação será feita principalmente por reuniões periódicas com o orientador e troca de documentos para revisão. Não há necessidade de comunicação ampla com comunidades externas antes da execução.
 
-19.3 Pontos de comunicação obrigatórios
-Especifique os eventos que exigem comunicação formal (aprovação do plano, mudanças relevantes, adiamentos, cancelamentos).
+## 19.3 Pontos de comunicação obrigatórios
+Haverá comunicação formal na aprovação do plano experimental, após a conclusão do piloto e caso ocorram mudanças relevantes no escopo ou na metodologia.
 
-20. Critérios de prontidão para execução (Definition of Ready)
-20.1 Checklist de prontidão (itens que devem estar completos)
-Liste os itens que precisam estar finalizados e aprovados (plano, instrumentos, aprovação ética, recursos, comunicação) para autorizar o início da operação.
-
-20.2 Aprovações finais para iniciar a operação
+# 20. Critérios de prontidão para execução (Definition of Ready)
+## 20.1 Checklist de prontidão (itens que devem estar completos)
+O experimento estará pronto para execução quando o plano experimental estiver finalizado e revisado, os scripts de coleta testados no piloto, as métricas validadas, os critérios éticos documentados e a infraestrutura técnica configurada.
+## 20.2 Aprovações finais para iniciar a operação
+A autorização final para iniciar a coleta definitiva dos dados será dada após a validação do piloto e a concordância do orientador com o plano ajustado.
